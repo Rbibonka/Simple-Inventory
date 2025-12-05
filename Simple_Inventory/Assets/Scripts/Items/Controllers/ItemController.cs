@@ -6,7 +6,7 @@ public class ItemController : MonoBehaviour
     private RectTransform rectTransform;
 
     [SerializeField]
-    private ItemUIEventObserver uiEventObserver;
+    private ItemEventObserver uiEventObserver;
 
     private ItemMover itemMover;
 

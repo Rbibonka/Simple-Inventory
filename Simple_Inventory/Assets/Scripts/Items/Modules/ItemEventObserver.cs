@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemUIEventObserver : MonoBehaviour, IDragHandler
+public class ItemEventObserver : MonoBehaviour, IDragHandler
 {
     public event Action<Vector2> Drag;
 

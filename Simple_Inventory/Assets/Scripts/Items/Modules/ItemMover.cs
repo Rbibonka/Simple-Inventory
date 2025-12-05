@@ -5,9 +5,9 @@ public class ItemMover : IDisposable
 {
     private RectTransform rectTransform;
     private Canvas canvas;
-    private ItemUIEventObserver uiEventObserver;
+    private ItemEventObserver uiEventObserver;
 
-    public ItemMover(RectTransform rectTransform, ItemUIEventObserver uiEventObserver, Canvas canvas)
+    public ItemMover(RectTransform rectTransform, ItemEventObserver uiEventObserver, Canvas canvas)
     {
         this.rectTransform = rectTransform;
         this.uiEventObserver = uiEventObserver;
