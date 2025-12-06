@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class ItemController : MonoBehaviour, IDisposable
 {
+    public event Action ItemSelected;
+
     [SerializeField]
     private RectTransform rectTransform;
 
@@ -17,7 +19,7 @@ public class ItemController : MonoBehaviour, IDisposable
     private ItemModel itemModel;
     private ItemView itemView;
 
-    private bool disposed;
+    private bool isDisposed;
 
     public void Initialize(Canvas canvas)
     {
@@ -32,7 +34,7 @@ public class ItemController : MonoBehaviour, IDisposable
 
     public void Dispose()
     {
-        if (disposed)
+        if (isDisposed)
         {
             return;
         }
@@ -41,7 +43,12 @@ public class ItemController : MonoBehaviour, IDisposable
         uiEventObserver.PointerDown -= PointerDown;
         uiEventObserver.PointerUp -= PointerUp;
 
-        disposed = true;
+        isDisposed = true;
+    }
+
+    public void MoveToDefault()
+    {
+        itemMover.MoveToDefault();
     }
 
     public void SetToSocket(RectTransform socketTransform)
@@ -58,6 +65,7 @@ public class ItemController : MonoBehaviour, IDisposable
     private void PointerUp()
     {
         itemView.UnselectItem();
+        ItemSelected?.Invoke();
     }
 
     private void OnDrag(Vector2 delta)

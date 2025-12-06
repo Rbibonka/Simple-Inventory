@@ -6,6 +6,8 @@ public class UIInitializer
     private ItemController itemPrefab;
     private GridCellController gridCellPrefab;
 
+    private ItemSelector itemSelector;
+
     public UIInitializer(
         ItemsContainerController itemsContainer,
         GridController gridController,
@@ -22,5 +24,7 @@ public class UIInitializer
     {
         itemsContainer.Initiailze(itemPrefab);
         gridController.Initialize(gridCellPrefab);
+
+        itemSelector = new(itemsContainer, gridController);
     }
 }

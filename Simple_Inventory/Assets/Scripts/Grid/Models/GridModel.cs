@@ -3,39 +3,38 @@ using UnityEngine;
 
 public class GridModel : IDisposable
 {
-    private int cellsCount = 16;
-
     private GridCellController[] gridCellControllers;
 
-    private GridCellController gridCellPrefab;
     private RectTransform gridRectTransform;
 
-    private bool disposed;
+    private GridMatcher gridMatcher;
 
-    public GridModel(GridCellController gridCellPrefab, RectTransform gridRectTransform)
+    private bool isDisposed;
+
+    public GridModel(RectTransform gridRectTransform)
     {
-        this.gridCellPrefab = gridCellPrefab;
         this.gridRectTransform = gridRectTransform;
+        gridMatcher = new();
     }
 
-    public void CreateCells()
+    public void SetCells(GridCellController[] gridCellControllers)
     {
-        gridCellControllers = new GridCellController[cellsCount];
+        this.gridCellControllers = gridCellControllers;
 
-        for (int i = 0; i < cellsCount; i++)
+        foreach (var gridCell in gridCellControllers)
         {
-            var cell = GameObject.Instantiate(gridCellPrefab, gridRectTransform);
-            cell.Initialize();
-            cell.PointerEnter += OnCellEntered;
-            cell.PointerExit += OnCellExited;
+            gridCell.Initialize();
 
-            gridCellControllers[i] = cell;
+            gridCell.PointerEnter += OnCellEntered;
+            gridCell.PointerExit += OnCellExited;
         }
+
+        gridMatcher.SetGrid(this.gridCellControllers);
     }
 
     public void Dispose()
     {
-        if (disposed)
+        if (isDisposed)
         {
             return;
         }
@@ -46,16 +45,16 @@ public class GridModel : IDisposable
             gridCell.PointerExit -= OnCellExited;
         }
 
-        disposed = true;
+        isDisposed = true;
     }
 
     private void OnCellEntered(GridCellController gridCell)
     {
-
+        gridCell.SelectCell();
     }
 
     private void OnCellExited(GridCellController gridCell)
     {
-
+        gridCell.UnselectCell();
     }
 }

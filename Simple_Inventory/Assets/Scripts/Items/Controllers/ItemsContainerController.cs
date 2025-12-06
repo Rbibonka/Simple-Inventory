@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class ItemsContainerController : MonoBehaviour
+public class ItemsContainerController : MonoBehaviour, IDisposable
 {
     [SerializeField]
     private ItemSocketController[] itemSockets;
@@ -9,6 +10,10 @@ public class ItemsContainerController : MonoBehaviour
     private Canvas canvas;
 
     private ItemController itemPrefab;
+
+    public event Action<ItemSocketController> ItemReleased;
+
+    private bool isDisposed;
 
     public void Initiailze(ItemController itemPrefab)
     {
@@ -25,6 +30,28 @@ public class ItemsContainerController : MonoBehaviour
             item.Initialize(canvas);
 
             itemSocket.SetItem(item);
+
+            itemSocket.ItemReleased += OnItemReleased;
         }
+    }
+
+    private void OnItemReleased(ItemSocketController socket)
+    {
+        ItemReleased?.Invoke(socket);
+    }
+
+    public void Dispose()
+    {
+        if (isDisposed)
+        {
+            return;
+        }
+
+        foreach (var itemSocket in itemSockets)
+        {
+            itemSocket.ItemReleased -= OnItemReleased;
+        }
+
+        isDisposed = true;
     }
 }

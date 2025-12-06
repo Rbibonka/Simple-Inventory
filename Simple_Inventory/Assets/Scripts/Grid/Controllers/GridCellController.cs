@@ -37,16 +37,6 @@ public class GridCellController : MonoBehaviour, IDisposable
         gridCellEventsObserver.PointerExit += OnPointerExit;
     }
 
-    private void OnPointerExit()
-    {
-        PointerExit?.Invoke(this);
-    }
-
-    private void OnPointerEnter()
-    {
-        PointerEnter?.Invoke(this);
-    }
-
     public void Dispose()
     {
         if (disposed)
@@ -58,5 +48,25 @@ public class GridCellController : MonoBehaviour, IDisposable
         gridCellEventsObserver.PointerExit -= OnPointerExit;
 
         disposed = true;
+    }
+
+    public void SelectCell()
+    {
+        cellView.SelectCell();
+    }
+
+    public void UnselectCell()
+    {
+        cellView.UnselectCell();
+    }
+
+    private void OnPointerExit()
+    {
+        PointerExit?.Invoke(this);
+    }
+
+    private void OnPointerEnter()
+    {
+        PointerEnter?.Invoke(this);
     }
 }

@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class ItemModel
@@ -21,6 +20,11 @@ public class ItemModel
     public void Drag(Vector2 delta)
     {
         itemMover.Move(delta);
+    }
+
+    public void MoveTo()
+    {
+        itemMover.MoveToDefault();
     }
 
     public void SetPosition(Vector3 targetPosition)
