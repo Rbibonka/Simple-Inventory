@@ -26,9 +26,7 @@ public class ItemController : MonoBehaviour, IDisposable
         uiEventObserver.PointerUp += PointerUp;
 
         itemView = new(img_Item);
-
         itemMover = new(rectTransform, canvas);
-
         itemModel = new(itemMover, rectTransform);
     }
 

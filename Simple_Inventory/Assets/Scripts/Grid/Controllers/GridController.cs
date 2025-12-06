@@ -5,29 +5,17 @@ public class GridController : MonoBehaviour
     [SerializeField]
     private RectTransform gridRectTransform;
 
-    private GridCellController gridCellPrefab;
-
-    private GridCellController[] gridCellControllers;
-
-    private int cellsCount = 16;
+    private GridModel gridModel;
 
     public void Initialize(GridCellController gridCellPrefab)
     {
-        this.gridCellPrefab = gridCellPrefab;
+        gridModel = new(gridCellPrefab, gridRectTransform);
 
         CreateCells();
     }
 
     public void CreateCells()
     {
-        gridCellControllers = new GridCellController[cellsCount];
-
-        for (int i = 0; i < cellsCount; i++)
-        {
-            var cell = Instantiate(gridCellPrefab, gridRectTransform);
-            cell.Initialize();
-
-            gridCellControllers[i] = cell;
-        }
+        gridModel.CreateCells();
     }
 }

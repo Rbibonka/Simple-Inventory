@@ -12,6 +12,9 @@ public struct GridCellConfig
 
 public class GridCellController : MonoBehaviour, IDisposable
 {
+    public event Action<GridCellController> PointerEnter;
+    public event Action<GridCellController> PointerExit;
+
     [SerializeField]
     private Image img_GridCell;
 
@@ -36,12 +39,12 @@ public class GridCellController : MonoBehaviour, IDisposable
 
     private void OnPointerExit()
     {
-        cellView.UnselectCell();
+        PointerExit?.Invoke(this);
     }
 
     private void OnPointerEnter()
     {
-        cellView.SelectCell();
+        PointerEnter?.Invoke(this);
     }
 
     public void Dispose()
