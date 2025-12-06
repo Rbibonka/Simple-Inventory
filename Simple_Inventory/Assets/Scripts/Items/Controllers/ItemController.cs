@@ -1,7 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemController : MonoBehaviour
+public class ItemController : MonoBehaviour, IDisposable
 {
     [SerializeField]
     private RectTransform rectTransform;
@@ -14,29 +15,55 @@ public class ItemController : MonoBehaviour
 
     private ItemMover itemMover;
     private ItemModel itemModel;
+    private ItemView itemView;
+
+    private bool disposed;
 
     public void Initialize(Canvas canvas)
     {
         uiEventObserver.Drag += OnDrag;
         uiEventObserver.PointerDown += PointerDown;
+        uiEventObserver.PointerUp += PointerUp;
+
+        itemView = new(img_Item);
 
         itemMover = new(rectTransform, canvas);
 
         itemModel = new(itemMover, rectTransform);
     }
 
-    private void PointerDown(Vector2 targetPosition)
+    public void Dispose()
     {
-        itemModel.SetPosition(targetPosition);
-    }
+        if (disposed)
+        {
+            return;
+        }
 
-    private void OnDrag(Vector2 delta)
-    {
-        itemModel.Drag(delta);
+        uiEventObserver.Drag -= OnDrag;
+        uiEventObserver.PointerDown -= PointerDown;
+        uiEventObserver.PointerUp -= PointerUp;
+
+        disposed = true;
     }
 
     public void SetToSocket(RectTransform socketTransform)
     {
         itemModel.SetToSocker(socketTransform);
+    }
+
+    private void PointerDown(Vector2 targetPosition)
+    {
+        itemModel.SetPosition(targetPosition);
+        itemView.SelectItem();
+    }
+
+    private void PointerUp()
+    {
+        itemView.UnselectItem();
+    }
+
+    private void OnDrag(Vector2 delta)
+    {
+        itemModel.Drag(delta);
     }
 }

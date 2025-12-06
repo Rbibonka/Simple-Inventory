@@ -2,10 +2,11 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemEventsObserver : MonoBehaviour, IDragHandler, IPointerDownHandler
+public class ItemEventsObserver : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     public event Action<Vector2> Drag;
     public event Action<Vector2> PointerDown;
+    public event Action PointerUp;
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -15,5 +16,10 @@ public class ItemEventsObserver : MonoBehaviour, IDragHandler, IPointerDownHandl
     public void OnPointerDown(PointerEventData eventData)
     {
         PointerDown?.Invoke(eventData.position);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        PointerUp?.Invoke();
     }
 }
