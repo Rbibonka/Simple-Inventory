@@ -8,11 +8,14 @@ public sealed class GridModel
 
     public IReadOnlyList<GridCellController> CurrentSelectedCells => currentSelectedCells;
 
-    public void SetCells(GridCellController[] gridCellControllers)
+    public void SetCells(GridCellController[,] gridCellControllers)
     {
         foreach (var gridCell in gridCellControllers)
         {
-            gridCell.Initialize();
+            if (!gridCell.IsActive)
+            {
+                gridCell.Deactivate();
+            }
         }
 
         gridMatcher = new(gridCellControllers);

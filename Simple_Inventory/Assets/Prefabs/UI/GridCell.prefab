@@ -55,6 +55,7 @@ MonoBehaviour:
     <DefaultColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
     <SelectedColor>k__BackingField: {r: 0.5163535, g: 1, b: 0.3820755, a: 1}
     <HoveredColor>k__BackingField: {r: 1, g: 0.814292, b: 0.28773582, a: 1}
+    <DeactivatedColor>k__BackingField: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
 --- !u!1 &5541496379447551551
 GameObject:
   m_ObjectHideFlags: 0

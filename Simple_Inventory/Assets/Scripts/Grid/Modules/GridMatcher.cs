@@ -3,9 +3,9 @@ using UnityEngine;
 
 public sealed class GridMatcher
 {
-    private IReadOnlyList<GridCellController> gridCellControllers;
+    private GridCellController[,] gridCellControllers;
 
-    public GridMatcher(IReadOnlyList<GridCellController> gridCellControllers)
+    public GridMatcher(GridCellController[,] gridCellControllers)
     {
         this.gridCellControllers = gridCellControllers;
     }
@@ -17,27 +17,7 @@ public sealed class GridMatcher
 
         foreach (var rectTransform in item.RectTransforms)
         {
-            foreach (var cell in gridCellControllers)
-            {
-                if (hoveredCells.Contains(cell)
-                    || !RectTransformUtils.IsRectTransformTouching(rectTransform, cell.RectTransform))
-                {
-                    continue;
-                }
-
-                if (hoveredCells.Count < counter)
-                {
-                    hoveredCells.Add(cell);
-                }
-
-                var currentCellDistance = Vector3.Distance(hoveredCells[counter - 1].RectTransform.position, rectTransform.position);
-                var newCellDistance = Vector3.Distance(cell.RectTransform.position, rectTransform.position);
-
-                if (currentCellDistance > newCellDistance)
-                {
-                    hoveredCells[counter - 1] = cell;
-                }
-            }
+            CollectionCells(hoveredCells, rectTransform, counter);
 
             if (hoveredCells.Count == counter)
             {
@@ -59,5 +39,36 @@ public sealed class GridMatcher
 
         Vector3 center = cumulativePosition / gridCellControllers.Count;
         return center;
+    }
+
+    private void CollectionCells(List<GridCellController> hoveredCells, RectTransform rectTransform, int counter)
+    {
+        foreach (var cell in gridCellControllers)
+        {
+            if (hoveredCells.Contains(cell)
+                || !RectTransformUtils.IsRectTransformTouching(rectTransform, cell.RectTransform)
+                || !cell.IsActive)
+            {
+                continue;
+            }
+
+            if (hoveredCells.Count < counter)
+            {
+                hoveredCells.Add(cell);
+            }
+
+            var currentCellDistance = Vector3.Distance(hoveredCells[counter - 1].RectTransform.position, rectTransform.position);
+            var newCellDistance = Vector3.Distance(cell.RectTransform.position, rectTransform.position);
+
+            if (currentCellDistance > newCellDistance)
+            {
+                hoveredCells[counter - 1] = cell;
+            }
+        }
+    }
+
+    private void FindNearestCell()
+    {
+    
     }
 }

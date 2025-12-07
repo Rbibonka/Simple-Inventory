@@ -15,11 +15,14 @@ public sealed class Bootstrap : MonoBehaviour
     [SerializeField]
     private GridCellController cellController;
 
-    private GameLoop uiInitializer;
+    [SerializeField]
+    private GridConfig gridConfig;
+
+    private GameLoop gameLoop;
 
     private void Awake()
     {
-        uiInitializer = new(itemsContainer, gridController, cellController, itemPrefab);
-        uiInitializer.Initialize();
+        gameLoop = new(gridConfig, itemsContainer, gridController, cellController, itemPrefab);
+        gameLoop.Initialize();
     }
 }

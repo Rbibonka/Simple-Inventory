@@ -12,4 +12,7 @@ public struct GridCellConfig
 
     [field: SerializeField]
     public Color HoveredColor { get; private set; }
+
+    [field: SerializeField]
+    public Color DeactivatedColor { get; private set; }
 }
