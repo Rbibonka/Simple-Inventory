@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [DefaultExecutionOrder(-1)]
-public class Bootstrap : MonoBehaviour
+public sealed class Bootstrap : MonoBehaviour
 {
     [SerializeField]
     private ItemsContainerController itemsContainer;
@@ -15,7 +15,7 @@ public class Bootstrap : MonoBehaviour
     [SerializeField]
     private GridCellController cellController;
 
-    private UIInitializer uiInitializer;
+    private GameLoop uiInitializer;
 
     private void Awake()
     {

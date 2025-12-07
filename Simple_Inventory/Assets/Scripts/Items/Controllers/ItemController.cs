@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemController : MonoBehaviour, IDisposable
+public sealed class ItemController : MonoBehaviour, IDisposable
 {
     public int CellsCount => itemModel.CellsCount;
 
@@ -11,7 +13,7 @@ public class ItemController : MonoBehaviour, IDisposable
     public event Action ItemDragged;
     public event Action ItemPointerUp;
 
-    public RectTransform[] RectTransforms => rectTransforms;
+    public IReadOnlyList<RectTransform> RectTransforms => rectTransforms;
 
     [SerializeField]
     private RectTransform[] rectTransforms;
@@ -23,9 +25,14 @@ public class ItemController : MonoBehaviour, IDisposable
     private Image img_Item;
 
     [SerializeField]
-    private ItemEventsObserver uiEventObserver;
+    private PointerUpObserver pointerUpObserver;
 
-    private ItemMover itemMover;
+    [SerializeField]
+    private PointerDownObserver pointerDownObserver;
+
+    [SerializeField]
+    private ElementDragObserver elementDragObserver;
+
     private ItemModel itemModel;
     private ItemView itemView;
 
@@ -33,13 +40,12 @@ public class ItemController : MonoBehaviour, IDisposable
 
     public void Initialize(Canvas canvas, int cellsCount)
     {
-        uiEventObserver.Drag += OnDrag;
-        uiEventObserver.PointerDown += PointerDown;
-        uiEventObserver.PointerUp += PointerUp;
+        elementDragObserver.Drag += OnDrag;
+        pointerDownObserver.PointerDown += PointerDown;
+        pointerUpObserver.PointerUp += PointerUp;
 
         itemView = new(img_Item);
-        itemMover = new(rectTransform, canvas);
-        itemModel = new(itemMover, rectTransform, cellsCount);
+        itemModel = new(rectTransform, cellsCount, canvas);
     }
 
     public void Dispose()
@@ -49,16 +55,16 @@ public class ItemController : MonoBehaviour, IDisposable
             return;
         }
 
-        uiEventObserver.Drag -= OnDrag;
-        uiEventObserver.PointerDown -= PointerDown;
-        uiEventObserver.PointerUp -= PointerUp;
+        elementDragObserver.Drag -= OnDrag;
+        pointerDownObserver.PointerDown -= PointerDown;
+        pointerUpObserver.PointerUp -= PointerUp;
 
         isDisposed = true;
     }
 
     public void MoveToDefault()
     {
-        itemMover.MoveToDefault();
+        itemModel.MoveToDefault();
     }
 
     public void SetToSocket(RectTransform socketTransform)
@@ -66,9 +72,9 @@ public class ItemController : MonoBehaviour, IDisposable
         itemModel.SetToSocker(socketTransform);
     }
 
-    private void PointerDown(Vector2 targetPosition)
+    private void PointerDown(PointerEventData pointerEventData)
     {
-        itemModel.SetPosition(targetPosition);
+        itemModel.SetPosition(pointerEventData.position);
         itemView.SelectItem();
     }
 
@@ -78,9 +84,9 @@ public class ItemController : MonoBehaviour, IDisposable
         ItemPointerUp?.Invoke();
     }
 
-    private void OnDrag(Vector2 delta)
+    private void OnDrag(PointerEventData pointerEventData)
     {
-        itemModel.Drag(delta);
+        itemModel.Drag(pointerEventData.delta);
         ItemDragged?.Invoke();
     }
 }

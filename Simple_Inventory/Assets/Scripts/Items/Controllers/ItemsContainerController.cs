@@ -1,8 +1,11 @@
 using System;
 using UnityEngine;
 
-public class ItemsContainerController : MonoBehaviour, IDisposable
+public sealed class ItemsContainerController : MonoBehaviour, IDisposable
 {
+    public event Action<ItemSocketController> ItemDragged;
+    public event Action<ItemSocketController> ItemDeselected;
+
     [SerializeField]
     private ItemSocketController[] itemSockets;
 
@@ -10,9 +13,6 @@ public class ItemsContainerController : MonoBehaviour, IDisposable
     private Canvas canvas;
 
     private ItemController itemPrefab;
-
-    public event Action<ItemSocketController> ItemDragged;
-    public event Action<ItemSocketController> ItemDeselected;
 
     private bool isDisposed;
 
@@ -57,6 +57,7 @@ public class ItemsContainerController : MonoBehaviour, IDisposable
         foreach (var itemSocket in itemSockets)
         {
             itemSocket.ItemDragged -= OnItemDragged;
+            itemSocket.ItemDereleased -= OnItemDereleased;
         }
 
         isDisposed = true;

@@ -1,19 +1,7 @@
-using System;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-[Serializable]
-public struct GridCellConfig
-{
-    public Color DefaultColor;
-
-    public Color SelectedColor;
-
-    public Color HoveredColor;
-}
-
-public class GridCellController : MonoBehaviour
+public sealed class GridCellController : MonoBehaviour
 {
     public RectTransform RectTransform => rectTransform;
 

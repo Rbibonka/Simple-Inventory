@@ -52,9 +52,9 @@ MonoBehaviour:
   rectTransform: {fileID: 6030046198270752729}
   img_GridCell: {fileID: 9175990594353817039}
   gridCellConfig:
-    DefaultColor: {r: 1, g: 1, b: 1, a: 1}
-    SelectedColor: {r: 0.6364932, g: 1, b: 0.504717, a: 1}
-    HoveredColor: {r: 0.9811321, g: 0.86606294, b: 0.28230685, a: 1}
+    <DefaultColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
+    <SelectedColor>k__BackingField: {r: 0.5163535, g: 1, b: 0.3820755, a: 1}
+    <HoveredColor>k__BackingField: {r: 1, g: 0.814292, b: 0.28773582, a: 1}
 --- !u!1 &5541496379447551551
 GameObject:
   m_ObjectHideFlags: 0

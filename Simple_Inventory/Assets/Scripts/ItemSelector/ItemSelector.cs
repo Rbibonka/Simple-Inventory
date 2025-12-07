@@ -1,4 +1,4 @@
-public class ItemSelector
+public sealed class ItemSelector
 {
     private ItemsContainerController itemsContainer;
     private GridController gridController;

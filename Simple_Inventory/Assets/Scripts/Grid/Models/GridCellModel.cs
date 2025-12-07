@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class GridCellModel
+public sealed class GridCellModel
 {
     private bool isOccupy;
 

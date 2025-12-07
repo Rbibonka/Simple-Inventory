@@ -1,6 +1,6 @@
 using UnityEngine.UI;
 
-public class ItemView
+public sealed class ItemView
 {
     private Image img_Item;
 
