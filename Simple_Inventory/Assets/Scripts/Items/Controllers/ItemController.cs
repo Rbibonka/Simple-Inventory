@@ -4,6 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public enum ItemAxis
+{
+    none,
+    horizontal,
+    vertical
+}
+
 public sealed class ItemController : MonoBehaviour, IDisposable
 {
     public int CellsCount => itemModel.CellsCount;
@@ -60,6 +67,20 @@ public sealed class ItemController : MonoBehaviour, IDisposable
         pointerUpObserver.PointerUp -= PointerUp;
 
         isDisposed = true;
+    }
+
+    public ItemAxis GetItemAxis()
+    {
+        if (rectTransform.sizeDelta.x >= rectTransform.sizeDelta.y)
+        {
+            return ItemAxis.horizontal;
+        }
+        else if (rectTransform.sizeDelta.x <= rectTransform.sizeDelta.y)
+        {
+            return ItemAxis.vertical;
+        }
+
+        return ItemAxis.none;
     }
 
     public void MoveToDefault()

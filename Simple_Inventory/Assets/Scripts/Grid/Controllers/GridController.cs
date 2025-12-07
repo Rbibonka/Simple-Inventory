@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public sealed class GridController : MonoBehaviour
@@ -6,17 +8,15 @@ public sealed class GridController : MonoBehaviour
     private RectTransform gridRectTransform;
 
     private GridCellController gridCellPrefab;
-    private GridCellController[] gridCellControllers;
+    private GridCellController[,] gridCellControllers;
     private GridModel gridModel;
 
-    private int cellsCount = 16;
-
-    public void Initialize(GridCellController gridCellPrefab)
+    public void Initialize(GridCellController gridCellPrefab, GridConfig gridConfig)
     {
         this.gridCellPrefab = gridCellPrefab;
         gridModel = new();
 
-        CreateCells();
+        CreateCells(gridConfig);
     }
 
     public void HighlightCells(ItemController item)
@@ -48,15 +48,26 @@ public sealed class GridController : MonoBehaviour
         }
     }
 
-    public void CreateCells()
+    public void CreateCells(GridConfig gridConfig)
     {
-        gridCellControllers = new GridCellController[cellsCount];
+        gridCellControllers = new GridCellController[gridConfig.Grid.Length, gridConfig.Grid[0].row.Length];
 
-        for (int i = 0; i < cellsCount; i++)
+        int row = 0;
+        int column = 0;
+
+        foreach (var gridRow in gridConfig.Grid)
         {
-            var cell = GameObject.Instantiate(gridCellPrefab, gridRectTransform);
+            foreach (var gridColumn in gridRow.row)
+            {
+                var cell = GameObject.Instantiate(gridCellPrefab, gridRectTransform);
 
-            gridCellControllers[i] = cell;
+                cell.Initialize(gridColumn, new Vector2(row, column));
+
+                gridCellControllers[row, column] = cell;
+                column++;
+            }
+            row++;
+            column = 0;
         }
 
         gridModel.SetCells(gridCellControllers);
@@ -66,7 +77,14 @@ public sealed class GridController : MonoBehaviour
     {
         foreach (var cell in gridCellControllers)
         {
-            cell.DeselectCell();
+            if (cell.IsActive)
+            {
+                cell.DeselectCell();
+            }
+            else
+            {
+                cell.Deactivate();
+            }
         }
     }
 

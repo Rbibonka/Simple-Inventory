@@ -7,13 +7,16 @@ public sealed class GameLoop
     private GridCellController gridCellPrefab;
 
     private ItemSelector itemSelector;
+    private GridConfig gridConfig;
 
     public GameLoop(
+        GridConfig gridConfig,
         ItemsContainerController itemsContainer,
         GridController gridController,
         GridCellController gridCellPrefab,
         ItemController itemPrefab)
     {
+        this.gridConfig = gridConfig;
         this.itemsContainer = itemsContainer;
         this.gridController = gridController;
         this.gridCellPrefab = gridCellPrefab;
@@ -23,7 +26,7 @@ public sealed class GameLoop
     public void Initialize()
     {
         itemsContainer.Initiailze(itemPrefab);
-        gridController.Initialize(gridCellPrefab);
+        gridController.Initialize(gridCellPrefab, gridConfig);
 
         itemSelector = new(itemsContainer, gridController);
     }

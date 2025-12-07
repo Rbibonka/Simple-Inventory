@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 
-public sealed class GridCellView
+public sealed
+    class GridCellView
 {
     private Image img_GridCell;
     private GridCellConfig gridCellConfig;
@@ -9,6 +10,11 @@ public sealed class GridCellView
     {
         this.img_GridCell = img_GridCell;
         this.gridCellConfig = gridCellConfig;
+    }
+
+    public void Deactivate()
+    {
+        img_GridCell.color = gridCellConfig.DeactivatedColor;
     }
 
     public void HoverCell()

@@ -5,6 +5,10 @@ public sealed class GridCellController : MonoBehaviour
 {
     public RectTransform RectTransform => rectTransform;
 
+    public bool IsActive => cellModel.IsActive;
+
+    public Vector2 MatrixGridPosition => matrixGridPosition;
+
     [SerializeField]
     private RectTransform rectTransform;
 
@@ -17,10 +21,19 @@ public sealed class GridCellController : MonoBehaviour
     private GridCellView cellView;
     private GridCellModel cellModel;
 
-    public void Initialize()
+    private Vector2 matrixGridPosition;
+
+    public void Initialize(bool isActive, Vector2 matrixGridPosition)
     {
+        this.matrixGridPosition = matrixGridPosition;
+
         cellView = new(img_GridCell, gridCellConfig);
-        cellModel = new();
+        cellModel = new(isActive);
+    }
+
+    public void Deactivate()
+    {
+        cellView.Deactivate();
     }
 
     public void HoverCell()
