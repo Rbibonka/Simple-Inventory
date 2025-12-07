@@ -11,6 +11,9 @@ public class GridModel : IDisposable
 
     private bool isDisposed;
 
+    public event Action<GridCellController> PointerEnter;
+    public event Action<GridCellController> PointerExit;
+
     public GridModel(RectTransform gridRectTransform)
     {
         this.gridRectTransform = gridRectTransform;
@@ -50,11 +53,11 @@ public class GridModel : IDisposable
 
     private void OnCellEntered(GridCellController gridCell)
     {
-        gridCell.SelectCell();
+        PointerEnter?.Invoke(gridCell);
     }
 
     private void OnCellExited(GridCellController gridCell)
     {
-        gridCell.UnselectCell();
+        PointerExit?.Invoke(gridCell);
     }
 }

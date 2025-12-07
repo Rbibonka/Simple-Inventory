@@ -4,7 +4,16 @@ using UnityEngine.UI;
 
 public class ItemController : MonoBehaviour, IDisposable
 {
+    public int CellsCount => itemModel.CellsCount;
+
+    public RectTransform RectTransform => rectTransform;
+
     public event Action ItemSelected;
+
+    public RectTransform[] RectTransforms => rectTransforms;
+
+    [SerializeField]
+    private RectTransform[] rectTransforms;
 
     [SerializeField]
     private RectTransform rectTransform;
@@ -21,7 +30,7 @@ public class ItemController : MonoBehaviour, IDisposable
 
     private bool isDisposed;
 
-    public void Initialize(Canvas canvas)
+    public void Initialize(Canvas canvas, int cellsCount)
     {
         uiEventObserver.Drag += OnDrag;
         uiEventObserver.PointerDown += PointerDown;
@@ -29,7 +38,7 @@ public class ItemController : MonoBehaviour, IDisposable
 
         itemView = new(img_Item);
         itemMover = new(rectTransform, canvas);
-        itemModel = new(itemMover, rectTransform);
+        itemModel = new(itemMover, rectTransform, cellsCount);
     }
 
     public void Dispose()
@@ -60,16 +69,19 @@ public class ItemController : MonoBehaviour, IDisposable
     {
         itemModel.SetPosition(targetPosition);
         itemView.SelectItem();
+        
     }
 
     private void PointerUp()
     {
         itemView.UnselectItem();
-        ItemSelected?.Invoke();
+        
     }
 
     private void OnDrag(Vector2 delta)
     {
+        ItemSelected?.Invoke();
+
         itemModel.Drag(delta);
     }
 }

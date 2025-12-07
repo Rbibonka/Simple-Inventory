@@ -5,10 +5,15 @@ public class ItemModel
     private ItemMover itemMover;
     private RectTransform rectTransform;
 
-    public ItemModel(ItemMover itemMover, RectTransform rectTransform)
+    private int cellsCount;
+
+    public int CellsCount => cellsCount;
+
+    public ItemModel(ItemMover itemMover, RectTransform rectTransform, int cellsCount)
     {
         this.itemMover = itemMover;
         this.rectTransform = rectTransform;
+        this.cellsCount = cellsCount;
     }
 
     public void SetToSocker(RectTransform socketTransform)

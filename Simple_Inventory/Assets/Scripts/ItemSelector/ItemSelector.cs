@@ -13,11 +13,6 @@ public class ItemSelector
 
     private void OnItemReleased(ItemSocketController socket)
     {
-        if (gridController.TrySetItem(socket.CurrentItem))
-        {
-            socket.UnsetCurrentItem();
-        }
-
-        socket.MoveItemToSocket();
+        gridController.TryHoverCells(socket.CurrentItem);
     }
 }

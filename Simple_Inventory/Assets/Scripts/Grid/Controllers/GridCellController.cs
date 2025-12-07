@@ -15,6 +15,11 @@ public class GridCellController : MonoBehaviour, IDisposable
     public event Action<GridCellController> PointerEnter;
     public event Action<GridCellController> PointerExit;
 
+    public RectTransform RectTransform => rectTransform;
+
+    [SerializeField]
+    private RectTransform rectTransform;
+
     [SerializeField]
     private Image img_GridCell;
 
