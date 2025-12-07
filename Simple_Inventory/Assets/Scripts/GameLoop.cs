@@ -1,4 +1,4 @@
-public class UIInitializer
+public sealed class GameLoop
 {
     private ItemsContainerController itemsContainer;
     private GridController gridController;
@@ -8,7 +8,7 @@ public class UIInitializer
 
     private ItemSelector itemSelector;
 
-    public UIInitializer(
+    public GameLoop(
         ItemsContainerController itemsContainer,
         GridController gridController,
         GridCellController gridCellPrefab,

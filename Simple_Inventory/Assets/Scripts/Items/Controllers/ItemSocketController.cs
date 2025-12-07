@@ -1,17 +1,17 @@
 using System;
 using UnityEngine;
 
-public class ItemSocketController : MonoBehaviour
+public sealed class ItemSocketController : MonoBehaviour
 {
-    [SerializeField]
-    private RectTransform rectTransform;
-
-    private ItemController currentItem;
-
     public ItemController CurrentItem => currentItem;
 
     public event Action<ItemSocketController> ItemDragged;
     public event Action<ItemSocketController> ItemDereleased;
+
+    [SerializeField]
+    private RectTransform rectTransform;
+
+    private ItemController currentItem;
 
     public void SetItem(ItemController item)
     {
@@ -35,6 +35,9 @@ public class ItemSocketController : MonoBehaviour
 
         var tempCurrentItem = currentItem;
         currentItem = null;
+
+        currentItem.ItemDragged -= OnItemDragged;
+        currentItem.ItemPointerUp -= OnItemDeselected;
 
         return tempCurrentItem;
     }

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridMatcher
+public sealed class GridMatcher
 {
-    private GridCellController[] gridCellControllers;
+    private IReadOnlyList<GridCellController> gridCellControllers;
 
-    public GridMatcher(GridCellController[] gridCellControllers)
+    public GridMatcher(IReadOnlyList<GridCellController> gridCellControllers)
     {
         this.gridCellControllers = gridCellControllers;
     }
@@ -48,7 +48,7 @@ public class GridMatcher
         return hoveredCells;
     }
 
-    public Vector3 GetCenterPoint(GridCellController[] gridCellControllers)
+    public Vector3 GetCenterPoint(IReadOnlyList<GridCellController> gridCellControllers)
     {
         Vector3 cumulativePosition = Vector3.zero;
 
@@ -57,7 +57,7 @@ public class GridMatcher
             cumulativePosition += gridCell.RectTransform.position;
         }
 
-        Vector3 center = cumulativePosition / gridCellControllers.Length;
+        Vector3 center = cumulativePosition / gridCellControllers.Count;
         return center;
     }
 }

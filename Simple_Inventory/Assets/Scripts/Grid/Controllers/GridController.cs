@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GridController : MonoBehaviour
+public sealed class GridController : MonoBehaviour
 {
     [SerializeField]
     private RectTransform gridRectTransform;
@@ -21,7 +21,7 @@ public class GridController : MonoBehaviour
 
     public void HighlightCells(ItemController item)
     {
-        var occupyCells = gridModel.FindNearestICells(item);
+        var occupyCells = gridModel.FindNearestItemCells(item);
 
         if (occupyCells.Count < 1)
         {

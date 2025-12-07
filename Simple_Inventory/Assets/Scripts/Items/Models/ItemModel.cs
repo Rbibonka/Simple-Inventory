@@ -1,19 +1,20 @@
 using UnityEngine;
 
-public class ItemModel
+public sealed class ItemModel
 {
+    public int CellsCount => cellsCount;
+
     private ItemMover itemMover;
     private RectTransform rectTransform;
 
     private int cellsCount;
 
-    public int CellsCount => cellsCount;
-
-    public ItemModel(ItemMover itemMover, RectTransform rectTransform, int cellsCount)
+    public ItemModel(RectTransform rectTransform, int cellsCount, Canvas canvas)
     {
-        this.itemMover = itemMover;
         this.rectTransform = rectTransform;
         this.cellsCount = cellsCount;
+
+        itemMover = new(rectTransform, canvas);
     }
 
     public void SetToSocker(RectTransform socketTransform)
@@ -27,7 +28,7 @@ public class ItemModel
         itemMover.Move(delta);
     }
 
-    public void MoveTo()
+    public void MoveToDefault()
     {
         itemMover.MoveToDefault();
     }

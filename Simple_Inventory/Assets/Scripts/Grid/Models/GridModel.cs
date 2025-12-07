@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 
-public class GridModel
+public sealed class GridModel
 {
     private GridMatcher gridMatcher;
 
     private List<GridCellController> currentSelectedCells;
 
-    public List<GridCellController> CurrentSelectedCells => currentSelectedCells;
+    public IReadOnlyList<GridCellController> CurrentSelectedCells => currentSelectedCells;
 
     public void SetCells(GridCellController[] gridCellControllers)
     {
@@ -18,7 +18,7 @@ public class GridModel
         gridMatcher = new(gridCellControllers);
     }
 
-    public List<GridCellController> FindNearestICells(ItemController item)
+    public List<GridCellController> FindNearestItemCells(ItemController item)
     {
         return gridMatcher.FindNearestCells(item);
     }
@@ -35,7 +35,7 @@ public class GridModel
 
     public void SetItemToGrid(ItemController item)
     {
-        var centerPoint = gridMatcher.GetCenterPoint(currentSelectedCells.ToArray());
+        var centerPoint = gridMatcher.GetCenterPoint(currentSelectedCells);
 
         item.RectTransform.position = centerPoint;
     }
