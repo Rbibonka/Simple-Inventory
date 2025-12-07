@@ -10,7 +10,8 @@ public class ItemSocketController : MonoBehaviour
 
     public ItemController CurrentItem => currentItem;
 
-    public event Action<ItemSocketController> ItemReleased;
+    public event Action<ItemSocketController> ItemDragged;
+    public event Action<ItemSocketController> ItemDereleased;
 
     public void SetItem(ItemController item)
     {
@@ -20,7 +21,8 @@ public class ItemSocketController : MonoBehaviour
         }
 
         currentItem = item;
-        currentItem.ItemSelected += OnItemSelected;
+        currentItem.ItemDragged += OnItemDragged;
+        currentItem.ItemPointerUp += OnItemDeselected;
         currentItem.SetToSocket(rectTransform);
     }
 
@@ -47,8 +49,13 @@ public class ItemSocketController : MonoBehaviour
         currentItem.MoveToDefault();
     }
 
-    private void OnItemSelected()
+    private void OnItemDeselected()
     {
-        ItemReleased?.Invoke(this);
+        ItemDereleased?.Invoke(this);
+    }
+
+    private void OnItemDragged()
+    {
+        ItemDragged?.Invoke(this);
     }
 }

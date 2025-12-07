@@ -8,11 +8,26 @@ public class ItemSelector
         this.itemsContainer = itemsContainer;
         this.gridController = gridController;
 
-        itemsContainer.ItemReleased += OnItemReleased;
+        this.itemsContainer.ItemDragged += OnItemDragged;
+        this.itemsContainer.ItemDeselected += OnItemDereleased;
     }
 
-    private void OnItemReleased(ItemSocketController socket)
+    private void OnItemDereleased(ItemSocketController socket)
     {
-        gridController.TryHoverCells(socket.CurrentItem);
+        if (gridController.TrySetItem(socket.CurrentItem.CellsCount))
+        {
+            gridController.SetItemToGrid(socket.CurrentItem);
+        }
+        else
+        {
+            gridController.DeselectGridCells();
+            socket.MoveItemToSocket();
+        }
+    }
+
+    private void OnItemDragged(ItemSocketController socket)
+    {
+        gridController.DeselectGridCells();
+        gridController.HighlightCells(socket.CurrentItem);
     }
 }

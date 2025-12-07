@@ -11,12 +11,17 @@ public class GridCellView
         this.gridCellConfig = gridCellConfig;
     }
 
+    public void HoverCell()
+    {
+        img_GridCell.color = gridCellConfig.HoveredColor;
+    }
+
     public void SelectCell()
     {
         img_GridCell.color = gridCellConfig.SelectedColor;
     }
 
-    public void UnselectCell()
+    public void DefaultCell()
     {
         img_GridCell.color = gridCellConfig.DefaultColor;
     }

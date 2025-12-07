@@ -8,7 +8,8 @@ public class ItemController : MonoBehaviour, IDisposable
 
     public RectTransform RectTransform => rectTransform;
 
-    public event Action ItemSelected;
+    public event Action ItemDragged;
+    public event Action ItemPointerUp;
 
     public RectTransform[] RectTransforms => rectTransforms;
 
@@ -69,19 +70,17 @@ public class ItemController : MonoBehaviour, IDisposable
     {
         itemModel.SetPosition(targetPosition);
         itemView.SelectItem();
-        
     }
 
     private void PointerUp()
     {
         itemView.UnselectItem();
-        
+        ItemPointerUp?.Invoke();
     }
 
     private void OnDrag(Vector2 delta)
     {
-        ItemSelected?.Invoke();
-
         itemModel.Drag(delta);
+        ItemDragged?.Invoke();
     }
 }

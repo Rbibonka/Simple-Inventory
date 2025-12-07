@@ -11,7 +11,8 @@ public class ItemsContainerController : MonoBehaviour, IDisposable
 
     private ItemController itemPrefab;
 
-    public event Action<ItemSocketController> ItemReleased;
+    public event Action<ItemSocketController> ItemDragged;
+    public event Action<ItemSocketController> ItemDeselected;
 
     private bool isDisposed;
 
@@ -31,13 +32,19 @@ public class ItemsContainerController : MonoBehaviour, IDisposable
 
             itemSocket.SetItem(item);
 
-            itemSocket.ItemReleased += OnItemReleased;
+            itemSocket.ItemDragged += OnItemDragged;
+            itemSocket.ItemDereleased += OnItemDereleased;
         }
     }
 
-    private void OnItemReleased(ItemSocketController socket)
+    private void OnItemDereleased(ItemSocketController socket)
     {
-        ItemReleased?.Invoke(socket);
+        ItemDeselected?.Invoke(socket);
+    }
+
+    private void OnItemDragged(ItemSocketController socket)
+    {
+        ItemDragged?.Invoke(socket);
     }
 
     public void Dispose()
@@ -49,7 +56,7 @@ public class ItemsContainerController : MonoBehaviour, IDisposable
 
         foreach (var itemSocket in itemSockets)
         {
-            itemSocket.ItemReleased -= OnItemReleased;
+            itemSocket.ItemDragged -= OnItemDragged;
         }
 
         isDisposed = true;

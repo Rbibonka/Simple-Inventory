@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class GridController : MonoBehaviour
@@ -8,9 +6,7 @@ public class GridController : MonoBehaviour
     private RectTransform gridRectTransform;
 
     private GridCellController gridCellPrefab;
-
     private GridCellController[] gridCellControllers;
-
     private GridModel gridModel;
 
     private int cellsCount = 16;
@@ -18,59 +14,37 @@ public class GridController : MonoBehaviour
     public void Initialize(GridCellController gridCellPrefab)
     {
         this.gridCellPrefab = gridCellPrefab;
-        gridModel = new(gridRectTransform);
+        gridModel = new();
 
         CreateCells();
     }
 
-    public void TryHoverCells(ItemController item)
+    public void HighlightCells(ItemController item)
     {
-        List<GridCellController> data = new();
+        var occupyCells = gridModel.FindNearestICells(item);
 
-        var occupyCells = new GridCellController[item.CellsCount];
-        int counter = 0;
-
-        foreach (var cell in gridCellControllers)
+        if (occupyCells.Count < 1)
         {
-            cell.UnselectCell();
-
-            if (RectTransformUtils.IsRectTransformTouching(item.RectTransform, cell.RectTransform))
-            {
-                data.Add(cell);
-            }
-            else
-            {
-                data.Remove(cell);
-            }
+            return;
         }
 
-        foreach (var rectTransform in item.RectTransforms)
+        if (occupyCells.Count < item.CellsCount)
         {
-            foreach (var cell in data)
+            foreach (var cell in occupyCells)
             {
-                if (occupyCells[counter] == null)
-                {
-                    occupyCells[counter] = cell;
-                }
-
-                var currentCellDistance = Vector3.Distance(occupyCells[counter].RectTransform.position, rectTransform.position);
-                var newCellDistance = Vector3.Distance(cell.RectTransform.position, rectTransform.position);
-
-                if (currentCellDistance > newCellDistance)
-                {
-                    occupyCells[counter] = cell;
-                }
+                cell.HoverCell();
             }
 
-            counter++;
+            gridModel.ClearSelectedCells();
         }
-
-        foreach (var occupyCell in occupyCells)
+        else if (occupyCells.Count == item.CellsCount)
         {
-            if (occupyCell != null)
+            foreach (var cell in occupyCells)
             {
-                occupyCell.SelectCell();
+                cell.SelectCell();
             }
+
+            gridModel.SetSelectedCells(occupyCells);
         }
     }
 
@@ -83,20 +57,31 @@ public class GridController : MonoBehaviour
             var cell = GameObject.Instantiate(gridCellPrefab, gridRectTransform);
 
             gridCellControllers[i] = cell;
-            gridCellControllers[i].PointerEnter += OnPointerEnter;
-            gridCellControllers[i].PointerExit += OnPointerExit;
         }
 
         gridModel.SetCells(gridCellControllers);
     }
 
-    private void OnPointerExit(GridCellController gridCell)
+    public void DeselectGridCells()
     {
-        //gridCell.UnselectCell();
+        foreach (var cell in gridCellControllers)
+        {
+            cell.DeselectCell();
+        }
     }
 
-    private void OnPointerEnter(GridCellController gridCell)
+    public bool TrySetItem(int cellsCount)
     {
-        //gridCell.SelectCell();
+        if (gridModel.CurrentSelectedCells.Count != cellsCount)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public void SetItemToGrid(ItemController item)
+    {
+        gridModel.SetItemToGrid(item);
     }
 }

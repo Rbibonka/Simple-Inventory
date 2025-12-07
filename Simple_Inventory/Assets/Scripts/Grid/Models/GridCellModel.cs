@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GridCellModel : MonoBehaviour
+public class GridCellModel
 {
     private bool isOccupy;
 

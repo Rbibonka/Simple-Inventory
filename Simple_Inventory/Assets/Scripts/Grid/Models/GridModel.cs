@@ -1,63 +1,42 @@
-using System;
-using UnityEngine;
+using System.Collections.Generic;
 
-public class GridModel : IDisposable
+public class GridModel
 {
-    private GridCellController[] gridCellControllers;
-
-    private RectTransform gridRectTransform;
-
     private GridMatcher gridMatcher;
 
-    private bool isDisposed;
+    private List<GridCellController> currentSelectedCells;
 
-    public event Action<GridCellController> PointerEnter;
-    public event Action<GridCellController> PointerExit;
-
-    public GridModel(RectTransform gridRectTransform)
-    {
-        this.gridRectTransform = gridRectTransform;
-        gridMatcher = new();
-    }
+    public List<GridCellController> CurrentSelectedCells => currentSelectedCells;
 
     public void SetCells(GridCellController[] gridCellControllers)
     {
-        this.gridCellControllers = gridCellControllers;
-
         foreach (var gridCell in gridCellControllers)
         {
             gridCell.Initialize();
-
-            gridCell.PointerEnter += OnCellEntered;
-            gridCell.PointerExit += OnCellExited;
         }
 
-        gridMatcher.SetGrid(this.gridCellControllers);
+        gridMatcher = new(gridCellControllers);
     }
 
-    public void Dispose()
+    public List<GridCellController> FindNearestICells(ItemController item)
     {
-        if (isDisposed)
-        {
-            return;
-        }
-
-        foreach (var gridCell in gridCellControllers)
-        {
-            gridCell.PointerEnter -= OnCellEntered;
-            gridCell.PointerExit -= OnCellExited;
-        }
-
-        isDisposed = true;
+        return gridMatcher.FindNearestCells(item);
     }
 
-    private void OnCellEntered(GridCellController gridCell)
+    public void ClearSelectedCells()
     {
-        PointerEnter?.Invoke(gridCell);
+        currentSelectedCells?.Clear();
     }
 
-    private void OnCellExited(GridCellController gridCell)
+    public void SetSelectedCells(List<GridCellController> gridCells)
     {
-        PointerExit?.Invoke(gridCell);
+        currentSelectedCells = gridCells;
+    }
+
+    public void SetItemToGrid(ItemController item)
+    {
+        var centerPoint = gridMatcher.GetCenterPoint(currentSelectedCells.ToArray());
+
+        item.RectTransform.position = centerPoint;
     }
 }
