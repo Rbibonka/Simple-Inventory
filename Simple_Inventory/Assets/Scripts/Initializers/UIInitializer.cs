@@ -1,16 +1,30 @@
 public class UIInitializer
 {
     private ItemsContainerController itemsContainer;
-    private ItemController itemPrefab;
+    private GridController gridController;
 
-    public UIInitializer(ItemsContainerController itemsContainer, ItemController itemPrefab)
+    private ItemController itemPrefab;
+    private GridCellController gridCellPrefab;
+
+    private ItemSelector itemSelector;
+
+    public UIInitializer(
+        ItemsContainerController itemsContainer,
+        GridController gridController,
+        GridCellController gridCellPrefab,
+        ItemController itemPrefab)
     {
         this.itemsContainer = itemsContainer;
+        this.gridController = gridController;
+        this.gridCellPrefab = gridCellPrefab;
         this.itemPrefab = itemPrefab;
     }
 
     public void Initialize()
     {
         itemsContainer.Initiailze(itemPrefab);
+        gridController.Initialize(gridCellPrefab);
+
+        itemSelector = new(itemsContainer, gridController);
     }
 }
