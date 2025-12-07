@@ -39,7 +39,10 @@ public class GridMatcher
                 }
             }
 
-            counter++;
+            if (hoveredCells.Count == counter)
+            {
+                counter++;
+            }
         }
 
         return hoveredCells;

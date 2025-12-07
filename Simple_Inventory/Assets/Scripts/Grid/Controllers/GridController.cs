@@ -72,12 +72,17 @@ public class GridController : MonoBehaviour
 
     public bool TrySetItem(int cellsCount)
     {
-        if (gridModel.CurrentSelectedCells.Count != cellsCount)
+        if (gridModel.CurrentSelectedCells == null || gridModel.CurrentSelectedCells.Count != cellsCount)
         {
             return false;
         }
 
         return true;
+    }
+
+    public void ClearSelectedCells()
+    {
+        gridModel.ClearSelectedCells();
     }
 
     public void SetItemToGrid(ItemController item)

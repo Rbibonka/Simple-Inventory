@@ -28,6 +28,7 @@ public class ItemSelector
     private void OnItemDragged(ItemSocketController socket)
     {
         gridController.DeselectGridCells();
+        gridController.ClearSelectedCells();
         gridController.HighlightCells(socket.CurrentItem);
     }
 }
