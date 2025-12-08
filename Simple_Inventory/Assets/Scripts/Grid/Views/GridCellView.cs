@@ -17,11 +17,6 @@ public sealed
         img_GridCell.color = gridCellConfig.DeactivatedColor;
     }
 
-    public void HoverCell()
-    {
-        img_GridCell.color = gridCellConfig.HoveredColor;
-    }
-
     public void SelectCell()
     {
         img_GridCell.color = gridCellConfig.SelectedColor;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public sealed class GridModel
 {
@@ -40,6 +41,6 @@ public sealed class GridModel
     {
         var centerPoint = gridMatcher.GetCenterPoint(currentSelectedCells);
 
-        item.RectTransform.position = centerPoint;
+        item.SetToGrid(centerPoint, currentSelectedCells.ToArray());
     }
 }

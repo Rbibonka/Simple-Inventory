@@ -7,6 +7,8 @@ public sealed class GridCellController : MonoBehaviour
 
     public bool IsActive => cellModel.IsActive;
 
+    public bool IsOccupy => cellModel.IsOccupy;
+
     public Vector2 MatrixGridPosition => matrixGridPosition;
 
     [SerializeField]
@@ -21,6 +23,7 @@ public sealed class GridCellController : MonoBehaviour
     private GridCellView cellView;
     private GridCellModel cellModel;
 
+    [SerializeField]
     private Vector2 matrixGridPosition;
 
     public void Initialize(bool isActive, Vector2 matrixGridPosition)
@@ -31,14 +34,19 @@ public sealed class GridCellController : MonoBehaviour
         cellModel = new(isActive);
     }
 
+    public void Occupy()
+    {
+        cellModel.OccupyCell();
+    }
+
+    public void Free()
+    {
+        cellModel.FreeCell();
+    }
+
     public void Deactivate()
     {
         cellView.Deactivate();
-    }
-
-    public void HoverCell()
-    {
-        cellView.HoverCell();
     }
 
     public void SelectCell()

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public sealed class GridController : MonoBehaviour
@@ -23,21 +21,12 @@ public sealed class GridController : MonoBehaviour
     {
         var occupyCells = gridModel.FindNearestItemCells(item);
 
-        if (occupyCells.Count < 1)
+        if (occupyCells == null || occupyCells.Count < 1)
         {
             return;
         }
 
-        if (occupyCells.Count < item.CellsCount)
-        {
-            foreach (var cell in occupyCells)
-            {
-                cell.HoverCell();
-            }
-
-            gridModel.ClearSelectedCells();
-        }
-        else if (occupyCells.Count == item.CellsCount)
+        if (occupyCells.Count == item.CellsCount)
         {
             foreach (var cell in occupyCells)
             {
@@ -61,9 +50,9 @@ public sealed class GridController : MonoBehaviour
             {
                 var cell = GameObject.Instantiate(gridCellPrefab, gridRectTransform);
 
-                cell.Initialize(gridColumn, new Vector2(row, column));
+                cell.Initialize(gridColumn, new Vector2(column, row));
 
-                gridCellControllers[row, column] = cell;
+                gridCellControllers[column, row] = cell;
                 column++;
             }
             row++;
