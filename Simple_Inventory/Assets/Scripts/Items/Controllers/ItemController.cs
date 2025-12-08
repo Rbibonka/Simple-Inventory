@@ -3,13 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-public enum ItemAxis
-{
-    none,
-    horizontal,
-    vertical
-}
+using static UnityEditor.Progress;
 
 public sealed class ItemController : MonoBehaviour, IDisposable
 {
@@ -20,13 +14,10 @@ public sealed class ItemController : MonoBehaviour, IDisposable
     public event Action ItemDragged;
     public event Action ItemPointerUp;
 
-    public IReadOnlyList<RectTransform> RectTransforms => rectTransforms;
+    public IReadOnlyList<ItemCellController> ItemsCells => itemsCellsControllers;
 
     [SerializeField]
-    private Vector2[] cellsPosition;
-
-    [SerializeField]
-    private RectTransform[] rectTransforms;
+    private ItemCellController[] itemsCellsControllers;
 
     [SerializeField]
     private RectTransform rectTransform;
@@ -55,7 +46,7 @@ public sealed class ItemController : MonoBehaviour, IDisposable
         pointerUpObserver.PointerUp += PointerUp;
 
         itemView = new(img_Item);
-        itemModel = new(rectTransform, rectTransforms.Length, canvas);
+        itemModel = new(rectTransform, itemsCellsControllers.Length, canvas);
     }
 
     public void Dispose()
@@ -72,18 +63,10 @@ public sealed class ItemController : MonoBehaviour, IDisposable
         isDisposed = true;
     }
 
-    public ItemAxis GetItemAxis()
+    public void SetToGrid(Vector3 target, IReadOnlyList<GridCellController> currentSelectedCells)
     {
-        if (rectTransform.sizeDelta.x >= rectTransform.sizeDelta.y)
-        {
-            return ItemAxis.horizontal;
-        }
-        else if (rectTransform.sizeDelta.x <= rectTransform.sizeDelta.y)
-        {
-            return ItemAxis.vertical;
-        }
-
-        return ItemAxis.none;
+        rectTransform.position = target;
+        itemModel.SetOccupyCells(currentSelectedCells);
     }
 
     public void MoveToDefault()
@@ -93,12 +76,13 @@ public sealed class ItemController : MonoBehaviour, IDisposable
 
     public void SetToSocket(RectTransform socketTransform)
     {
-        itemModel.SetToSocker(socketTransform);
+        itemModel.SetToSocket(socketTransform);
     }
 
     private void PointerDown(PointerEventData pointerEventData)
     {
         itemModel.SetPosition(pointerEventData.position);
+        itemModel.ClearOccupyCells();
         itemView.SelectItem();
     }
 

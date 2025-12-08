@@ -11,8 +11,5 @@ public struct GridCellConfig
     public Color SelectedColor { get; private set; }
 
     [field: SerializeField]
-    public Color HoveredColor { get; private set; }
-
-    [field: SerializeField]
     public Color DeactivatedColor { get; private set; }
 }
