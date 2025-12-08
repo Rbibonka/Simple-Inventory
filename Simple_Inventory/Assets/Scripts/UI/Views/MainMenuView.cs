@@ -10,9 +10,20 @@ public sealed class MainMenuView
 
     private IReadOnlyDictionary<RectTransform, Vector3> buttonsTransforms;
 
-    public MainMenuView(IReadOnlyDictionary<RectTransform, Vector3> buttonsTransforms)
+    private IconController[] iconControllers;
+
+    public MainMenuView(IReadOnlyDictionary<RectTransform, Vector3> buttonsTransforms, IconController[] iconControllers)
     {
         this.buttonsTransforms = buttonsTransforms;
+        this.iconControllers = iconControllers;
+    }
+
+    public void ShowIcons()
+    {
+        foreach (var controller in iconControllers)
+        {
+            controller.Show();
+        }
     }
 
     public async UniTask MoveButtonsAsync(CancellationToken ct)

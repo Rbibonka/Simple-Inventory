@@ -19,7 +19,7 @@ public sealed class MainMenuModel
         canvas.enabled = false;
     }
 
-    public void SetButtonsPosition(RectTransform[] buttonsTransform)
+    public void SetUIElements(RectTransform[] buttonsTransform)
     {
         buttonsTransfroms = new();
 
