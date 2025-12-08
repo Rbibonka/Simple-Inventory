@@ -32,7 +32,7 @@ public sealed class MainMenuController : MonoBehaviour
 
         mainMenuLoaderController.Initialize();
 
-        mainMenuModel = new();
+        mainMenuModel = new(canvas);
         mainMenuModel.SetButtonsPosition(buttonsTransform);
 
         mainMenuView = new(mainMenuModel.ButtonsTransfroms);
@@ -46,8 +46,7 @@ public sealed class MainMenuController : MonoBehaviour
     public async UniTask HideAsync(CancellationToken ct)
     {
         await mainMenuLoaderController.ShowAsync(ct);
-
-        canvas.enabled = false;
+        mainMenuModel.DisableUI();
     }
 
     private void OnPlayButtonClicked()

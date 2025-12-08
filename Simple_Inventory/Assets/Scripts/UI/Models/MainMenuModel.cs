@@ -3,9 +3,21 @@ using UnityEngine;
 
 public sealed class MainMenuModel
 {
+    private Canvas canvas;
+
     private Dictionary<RectTransform, Vector3> buttonsTransfroms;
 
     public IReadOnlyDictionary<RectTransform, Vector3> ButtonsTransfroms => buttonsTransfroms;
+
+    public MainMenuModel(Canvas canvas)
+    {
+        this.canvas = canvas;
+    }
+
+    public void DisableUI()
+    {
+        canvas.enabled = false;
+    }
 
     public void SetButtonsPosition(RectTransform[] buttonsTransform)
     {

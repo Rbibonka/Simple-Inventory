@@ -195,7 +195,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4130640169021434097, guid: 78631ca7852b45c4fa4f21e2494933d6, type: 3}
+  m_Sprite: {fileID: -4178046375966092550, guid: fd4f1ec58ec3ede4db72e6ac57b431b0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -527,7 +527,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3398118777449506543}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
@@ -550,6 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 7611546030315267596}
+  graphicRaycaster: {fileID: 6267044693994882724}
 --- !u!1 &3584917403104800745
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,7 +1522,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6470460504253458178, guid: 661ce61217b99ac4887ffe70c4482840, type: 3}
+  m_Sprite: {fileID: 4130640169021434097, guid: 78631ca7852b45c4fa4f21e2494933d6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

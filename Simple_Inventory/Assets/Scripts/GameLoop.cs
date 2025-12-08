@@ -51,6 +51,8 @@ public sealed class GameLoop
         await UniTask.WaitForSeconds(0.2f);
         await menuController.ShowAsync(ct);
 
+        gameUIController.EnableUI();
+
         itemSelector = new(itemsContainer, gridController);
     }
 
