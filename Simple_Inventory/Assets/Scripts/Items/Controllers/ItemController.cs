@@ -23,6 +23,9 @@ public sealed class ItemController : MonoBehaviour, IDisposable
     public IReadOnlyList<RectTransform> RectTransforms => rectTransforms;
 
     [SerializeField]
+    private Vector2[] cellsPosition;
+
+    [SerializeField]
     private RectTransform[] rectTransforms;
 
     [SerializeField]
@@ -45,14 +48,14 @@ public sealed class ItemController : MonoBehaviour, IDisposable
 
     private bool isDisposed;
 
-    public void Initialize(Canvas canvas, int cellsCount)
+    public void Initialize(Canvas canvas)
     {
         elementDragObserver.Drag += OnDrag;
         pointerDownObserver.PointerDown += PointerDown;
         pointerUpObserver.PointerUp += PointerUp;
 
         itemView = new(img_Item);
-        itemModel = new(rectTransform, cellsCount, canvas);
+        itemModel = new(rectTransform, rectTransforms.Length, canvas);
     }
 
     public void Dispose()

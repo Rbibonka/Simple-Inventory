@@ -49,6 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16eaafe2ba0f0742a888277efcdd1b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pos:
+  - {x: 0, y: 0}
+  - {x: 0, y: 1}
   rectTransform: {fileID: 6030046198270752729}
   img_GridCell: {fileID: 9175990594353817039}
   gridCellConfig:
