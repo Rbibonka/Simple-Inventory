@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 
 [DefaultExecutionOrder(-1)]
@@ -18,11 +20,20 @@ public sealed class Bootstrap : MonoBehaviour
     [SerializeField]
     private GridConfig gridConfig;
 
+    [SerializeField]
+    private MainMenuController menuController;
+
+    [SerializeField]
+
+    private GameUIController gameUIController;
+
     private GameLoop gameLoop;
 
     private void Awake()
     {
-        gameLoop = new(gridConfig, itemsContainer, gridController, cellController, itemPrefab);
-        gameLoop.Initialize();
+        CancellationTokenSource cts = new();
+
+        gameLoop = new(gridConfig, itemsContainer, gridController, menuController, gameUIController, cellController, itemPrefab);
+        gameLoop.InitializeAsync(cts.Token).Forget();
     }
 }

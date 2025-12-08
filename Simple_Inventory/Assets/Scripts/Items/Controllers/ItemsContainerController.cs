@@ -28,7 +28,7 @@ public sealed class ItemsContainerController : MonoBehaviour, IDisposable
         foreach (var itemSocket in itemSockets)
         {
             var item = GameObject.Instantiate(itemPrefab, canvas.transform);
-            item.Initialize(canvas, 3);
+            item.Initialize(canvas);
 
             itemSocket.SetItem(item);
 
