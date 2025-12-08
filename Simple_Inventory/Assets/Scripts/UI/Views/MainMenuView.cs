@@ -24,9 +24,9 @@ public sealed class MainMenuView
 
         foreach (var button in buttonsTransforms)
         {
-            await UniTask.WaitForSeconds(0.4f, cancellationToken: ct);
+            await UniTask.WaitForSeconds(0.2f, cancellationToken: ct);
 
-            _ = button.Key.DOMove(button.Value, 2f);
+            _ = button.Key.DOMove(button.Value, 1f);
         }
     }
 }

@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ItemMover
 {
@@ -12,13 +13,21 @@ public class ItemMover
         this.canvas = canvas;
     }
 
-    public void Move(Vector2 delta)
+    public void Move(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += delta / canvas.scaleFactor;
+        Vector2 deltaPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvas.transform as RectTransform,
+            eventData.position,
+            eventData.pressEventCamera,
+            out deltaPos
+        );
+
+        rectTransform.localPosition += (Vector3)deltaPos - rectTransform.localPosition;
     }
 
-    public void MoveToDefault()
+    public void MoveTo(Vector3 target)
     {
-        var a = rectTransform.DOLocalMove(Vector3.zero, 0.2f);
+        rectTransform.DOMove(target, 0.2f);
     }
 }

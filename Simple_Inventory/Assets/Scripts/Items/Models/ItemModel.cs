@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using static UnityEngine.GraphicsBuffer;
 
 public sealed class ItemModel
 {
@@ -11,6 +13,8 @@ public sealed class ItemModel
     private int cellsCount;
 
     private IReadOnlyList<GridCellController> occupyCells;
+
+    private Vector3 defaultPosition;
 
     public ItemModel(RectTransform rectTransform, int cellsCount, Canvas canvas)
     {
@@ -45,18 +49,19 @@ public sealed class ItemModel
 
     public void SetToSocket(RectTransform socketTransform)
     {
-        rectTransform.SetParent(socketTransform, false);
-        rectTransform.localPosition = Vector3.zero;
+        defaultPosition = socketTransform.position;
+
+        rectTransform.position = defaultPosition;
     }
 
-    public void Drag(Vector2 delta)
+    public void Drag(PointerEventData delta)
     {
         itemMover.Move(delta);
     }
 
     public void MoveToDefault()
     {
-        itemMover.MoveToDefault();
+        itemMover.MoveTo(defaultPosition);
     }
 
     public void SetPosition(Vector3 targetPosition)

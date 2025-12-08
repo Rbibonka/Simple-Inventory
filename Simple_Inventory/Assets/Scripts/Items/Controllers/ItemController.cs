@@ -94,7 +94,7 @@ public sealed class ItemController : MonoBehaviour, IDisposable
 
     private void OnDrag(PointerEventData pointerEventData)
     {
-        itemModel.Drag(pointerEventData.delta);
+        itemModel.Drag(pointerEventData);
         ItemDragged?.Invoke();
     }
 }

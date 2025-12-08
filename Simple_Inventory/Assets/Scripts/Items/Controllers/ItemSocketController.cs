@@ -26,22 +26,6 @@ public sealed class ItemSocketController : MonoBehaviour
         currentItem.SetToSocket(rectTransform);
     }
 
-    public ItemController UnsetCurrentItem()
-    {
-        if (currentItem == null)
-        {
-            throw new ArgumentNullException(nameof(currentItem), $"{nameof(currentItem)} cannot be null.");
-        }
-
-        var tempCurrentItem = currentItem;
-        currentItem = null;
-
-        currentItem.ItemDragged -= OnItemDragged;
-        currentItem.ItemPointerUp -= OnItemDeselected;
-
-        return tempCurrentItem;
-    }
-
     public void MoveItemToSocket()
     {
         if (currentItem == null)
