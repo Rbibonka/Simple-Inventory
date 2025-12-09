@@ -145,8 +145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeEffect: {fileID: 3003883808499934101}
   itemsCellsControllers:
-  - {fileID: 8706377386574860242}
   - {fileID: 5259282607726011177}
+  - {fileID: 8706377386574860242}
   rectTransform: {fileID: 4424336014701367647}
   img_Item: {fileID: 4868496241915858500}
   img_ItemImage: {fileID: 3563441674118715933}
