@@ -24,6 +24,7 @@ public sealed class MainMenuController : MonoBehaviour
     private MainMenuModel mainMenuModel;
 
     public event Action StartButtonClicked;
+    public event Action ExitButtonClicked;
 
     public void Initialize()
     {
@@ -59,6 +60,6 @@ public sealed class MainMenuController : MonoBehaviour
 
     private void OnExitButtonClicked()
     {
-
+        ExitButtonClicked?.Invoke();
     }
 }

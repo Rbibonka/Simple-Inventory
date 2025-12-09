@@ -130,6 +130,7 @@ MonoBehaviour:
   - {fileID: 258700425244509120}
   - {fileID: 8182053071003440270}
   canvas: {fileID: 7611546030315267596}
+  itemControllers: []
 --- !u!1 &1513760044715987115
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,7 +969,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -855298285791758126, guid: b03ff96ac02a7de4eb6cc277dbc8be31, type: 3}
+  m_Sprite: {fileID: -855298285791758126, guid: db155961cf088544fb0df10a13fe411f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1172,7 +1173,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6937817954938267909, guid: ee65ca51541f6924f850ac1d014c79cc, type: 3}
+  m_Sprite: {fileID: 6937817954938267909, guid: 542d4ba47e06f9142b0876548220323f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

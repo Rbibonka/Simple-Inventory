@@ -12,7 +12,7 @@ public sealed class Bootstrap : MonoBehaviour
     private GridController gridController;
 
     [SerializeField]
-    private ItemController itemPrefab;
+    private ItemLevelsConfig itemLevels;
 
     [SerializeField]
     private GridCellController cellController;
@@ -32,11 +32,21 @@ public sealed class Bootstrap : MonoBehaviour
 
     private GameLoop gameLoop;
 
+    private CancellationTokenSource cts;
+
     private void Awake()
     {
-        CancellationTokenSource cts = new();
+        cts = new();
 
-        gameLoop = new(gridConfig, itemsContainer, gridController, menuController, gameUIController, cellController, mainMenuLoaderController, itemPrefab);
+        gameLoop = new(gridConfig, itemsContainer, gridController, menuController, gameUIController, cellController, mainMenuLoaderController, itemLevels);
         gameLoop.InitializeAsync(cts.Token).Forget();
+    }
+
+    private void OnDestroy()
+    {
+        cts?.Cancel();
+        cts?.Dispose();
+
+        cts = null;
     }
 }

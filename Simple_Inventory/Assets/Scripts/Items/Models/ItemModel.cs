@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEngine.GraphicsBuffer;
 
 public sealed class ItemModel
 {
+    public int Level => level;
+
+    public ItemType ItemType => itemType;
+
     public int CellsCount => cellsCount;
 
     private ItemMover itemMover;
@@ -16,10 +19,14 @@ public sealed class ItemModel
 
     private Vector3 defaultPosition;
 
-    public ItemModel(RectTransform rectTransform, int cellsCount, Canvas canvas)
+    private int level;
+    private ItemType itemType;
+
+    public ItemModel(RectTransform rectTransform, int cellsCount, ItemType itemType, Canvas canvas)
     {
         this.rectTransform = rectTransform;
         this.cellsCount = cellsCount;
+        this.itemType = itemType;
 
         itemMover = new(rectTransform, canvas);
     }
@@ -46,6 +53,11 @@ public sealed class ItemModel
         {
             cell.Free();
         }
+    }
+
+    public void UpdateLevel()
+    {
+        level++;
     }
 
     public void SetToSocket(RectTransform socketTransform)

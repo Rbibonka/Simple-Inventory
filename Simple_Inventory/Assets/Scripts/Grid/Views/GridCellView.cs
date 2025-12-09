@@ -1,7 +1,6 @@
 using UnityEngine.UI;
 
-public sealed
-    class GridCellView
+public sealed class GridCellView
 {
     private Image img_GridCell;
     private GridCellConfig gridCellConfig;

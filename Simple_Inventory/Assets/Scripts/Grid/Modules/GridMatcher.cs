@@ -14,7 +14,7 @@ public sealed class GridMatcher
     public List<GridCellController> FindNearestCells(ItemController item)
     {
         List<GridCellController> hoveredCells = new();
-        
+
         hoveredCells = FindCells(item.RectTransform);
 
         if (hoveredCells.Count < 1)
@@ -116,36 +116,5 @@ public sealed class GridMatcher
 
         Vector3 center = cumulativePosition / gridCellControllers.Count;
         return center;
-    }
-
-    private void CollectionCells(List<GridCellController> hoveredCells, ItemCellController itemCellController, int counter)
-    {
-        foreach (var cell in gridCellControllers)
-        {
-            if (hoveredCells.Contains(cell)
-                || !RectTransformUtils.IsRectTransformTouching(itemCellController.RectTransform, cell.RectTransform)
-                || !cell.IsActive)
-            {
-                continue;
-            }
-
-            if (hoveredCells.Count > 0)
-            {
-
-            }
-
-            if (hoveredCells.Count < counter)
-            {
-                hoveredCells.Add(cell);
-            }
-
-            var currentCellDistance = Vector3.Distance(hoveredCells[counter - 1].RectTransform.position, itemCellController.RectTransform.position);
-            var newCellDistance = Vector3.Distance(cell.RectTransform.position, itemCellController.RectTransform.position);
-
-            if (currentCellDistance > newCellDistance)
-            {
-                hoveredCells[counter - 1] = cell;
-            }
-        }
     }
 }
