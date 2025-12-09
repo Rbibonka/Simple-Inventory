@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726916b6bed5b194784b311c31cc36a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeEffect: {fileID: 2708598583397607910, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}
+  upgradeEffect: {fileID: 416509204630310029}
   itemsCellsControllers:
   - {fileID: 5259282607726011177}
   - {fileID: 8706377386574860242}
@@ -505,6 +505,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}
+--- !u!198 &416509204630310029 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2708598583397607910, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}
+  m_PrefabInstance: {fileID: 2328744623647876459}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &416509204630310067 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2708598583397607896, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}
