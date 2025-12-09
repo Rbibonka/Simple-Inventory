@@ -1,12 +1,13 @@
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using UnityEngine;
 
 public sealed class GameLoop
 {
     private ItemsContainerController itemsContainer;
     private GridController gridController;
 
-    private ItemController itemPrefab;
+    private ItemLevelsConfig itemLevels;
     private GridCellController gridCellPrefab;
     private MainMenuLoaderController mainMenuLoaderController;
 
@@ -17,6 +18,8 @@ public sealed class GameLoop
 
     private bool isGameStarted;
 
+    private const float waitTime = 0.5f;
+
     public GameLoop(
         GridConfig gridConfig,
         ItemsContainerController itemsContainer,
@@ -25,7 +28,7 @@ public sealed class GameLoop
         GameUIController gameUIController,
         GridCellController gridCellPrefab,
         MainMenuLoaderController mainMenuLoaderController,
-        ItemController itemPrefab)
+        ItemLevelsConfig itemLevels)
     {
         this.gridConfig = gridConfig;
         this.itemsContainer = itemsContainer;
@@ -34,29 +37,37 @@ public sealed class GameLoop
         this.gameUIController = gameUIController;
         this.gridCellPrefab = gridCellPrefab;
         this.mainMenuLoaderController = mainMenuLoaderController;
-        this.itemPrefab = itemPrefab;
+        this.itemLevels = itemLevels;
     }
 
     public async UniTask InitializeAsync(CancellationToken ct)
     {
         gridController.Initialize(gridCellPrefab, gridConfig);
-        menuController.Initialize(mainMenuLoaderController);
+        menuController.Initialize();
+
+        mainMenuLoaderController.Initialize();
 
         menuController.StartButtonClicked += OnStartButtonClicked;
+        menuController.ExitButtonClicked += OnExitButtonClicked;
 
         await menuController.ShowAsync(ct);
         await UniTask.WaitUntil(() => isGameStarted);
-        await menuController.HideAsync(ct);
+        await mainMenuLoaderController.ShowAsync(ct);
+        menuController.HideAsync();
 
         gameUIController.Show();
         gameUIController.EnableUI();
 
-        itemsContainer.Initiailze(itemPrefab);
-        itemSelector = new(itemsContainer, gridController);
+        itemsContainer.Initiailze(itemLevels);
+        itemSelector = new(itemsContainer, gridController, itemLevels);
 
-        await UniTask.WaitForSeconds(0.5f);
+        await UniTask.WaitForSeconds(waitTime);
         await mainMenuLoaderController.HideAsync(ct);
-        
+    }
+
+    private void OnExitButtonClicked()
+    {
+        Application.Quit();
     }
 
     private void OnStartButtonClicked()

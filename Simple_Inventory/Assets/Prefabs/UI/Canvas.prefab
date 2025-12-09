@@ -130,6 +130,7 @@ MonoBehaviour:
   - {fileID: 258700425244509120}
   - {fileID: 8182053071003440270}
   canvas: {fileID: 7611546030315267596}
+  itemControllers: []
 --- !u!1 &1513760044715987115
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6431373, g: 0.61960787, b: 0.61960787, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -968,7 +969,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6937817954938267909, guid: 189db1458d3d2794c9c5fb31f77d760b, type: 3}
+  m_Sprite: {fileID: -855298285791758126, guid: db155961cf088544fb0df10a13fe411f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1172,7 +1173,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -855298285791758126, guid: 18084a1e35ad42a4ab312c05941806a6, type: 3}
+  m_Sprite: {fileID: 6937817954938267909, guid: 542d4ba47e06f9142b0876548220323f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2395,7 +2396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5875442257978836854, guid: d46166e4bfa0c944b9a938f45fa6cfd9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -549
+      value: -595
       objectReference: {fileID: 0}
     - target: {fileID: 5875442257978836854, guid: d46166e4bfa0c944b9a938f45fa6cfd9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2630,7 +2631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5875442257978836854, guid: d46166e4bfa0c944b9a938f45fa6cfd9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -549
+      value: -595
       objectReference: {fileID: 0}
     - target: {fileID: 5875442257978836854, guid: d46166e4bfa0c944b9a938f45fa6cfd9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

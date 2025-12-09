@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public sealed class ItemController : MonoBehaviour, IDisposable
 {
+    public ItemType ItemType => itemModel.ItemType;
+
+    public int Level => itemModel.Level;
+
     public int CellsCount => itemModel.CellsCount;
 
     public RectTransform RectTransform => rectTransform;
@@ -16,6 +20,9 @@ public sealed class ItemController : MonoBehaviour, IDisposable
     public IReadOnlyList<ItemCellController> ItemsCells => itemsCellsControllers;
 
     [SerializeField]
+    private ParticleSystem upgradeEffect;
+
+    [SerializeField]
     private ItemCellController[] itemsCellsControllers;
 
     [SerializeField]
@@ -23,6 +30,9 @@ public sealed class ItemController : MonoBehaviour, IDisposable
 
     [SerializeField]
     private Image img_Item;
+
+    [SerializeField]
+    private Image img_ItemImage;
 
     [SerializeField]
     private PointerUpObserver pointerUpObserver;
@@ -38,14 +48,14 @@ public sealed class ItemController : MonoBehaviour, IDisposable
 
     private bool isDisposed;
 
-    public void Initialize(Canvas canvas)
+    public void Initialize(Canvas canvas, ItemType itemType)
     {
         elementDragObserver.Drag += OnDrag;
         pointerDownObserver.PointerDown += PointerDown;
         pointerUpObserver.PointerUp += PointerUp;
 
-        itemView = new(img_Item);
-        itemModel = new(rectTransform, itemsCellsControllers.Length, canvas);
+        itemView = new(img_Item, img_ItemImage, upgradeEffect);
+        itemModel = new(rectTransform, itemsCellsControllers.Length, itemType, canvas);
     }
 
     public void Dispose()
@@ -76,6 +86,17 @@ public sealed class ItemController : MonoBehaviour, IDisposable
     public void SetToSocket(RectTransform socketTransform)
     {
         itemModel.SetToSocket(socketTransform);
+    }
+
+    public void UpdateLevel()
+    {
+        itemModel.UpdateLevel();
+        itemView.PlayUpgradeEffect();
+    }
+
+    public void UpdateImage(Sprite sprite)
+    {
+        itemView.UpdateImage(sprite);
     }
 
     private void PointerDown(PointerEventData pointerEventData)

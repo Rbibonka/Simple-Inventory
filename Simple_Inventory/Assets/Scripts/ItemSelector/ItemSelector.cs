@@ -2,11 +2,16 @@ public sealed class ItemSelector
 {
     private ItemsContainerController itemsContainer;
     private GridController gridController;
+    private ItemLevelUpdater itemLevelUpdater;
+    private ItemLevelsConfig itemLevelsConfig;
 
-    public ItemSelector(ItemsContainerController itemsContainer, GridController gridController)
+    public ItemSelector(ItemsContainerController itemsContainer, GridController gridController, ItemLevelsConfig itemLevelsConfig)
     {
         this.itemsContainer = itemsContainer;
         this.gridController = gridController;
+        this.itemLevelsConfig = itemLevelsConfig;
+
+        itemLevelUpdater = new(itemsContainer.ItemSockets, itemLevelsConfig);
 
         this.itemsContainer.ItemDragged += OnItemDragged;
         this.itemsContainer.ItemDeselected += OnItemDereleased;
@@ -14,6 +19,15 @@ public sealed class ItemSelector
 
     private void OnItemDereleased(ItemSocketController socket)
     {
+        var item = itemLevelUpdater.FindItem(socket.CurrentItem);
+
+        if (item != null)
+        {
+            itemLevelUpdater.UpdateItem(item, socket);
+
+            return;
+        }
+
         if (gridController.TrySetItem(socket.CurrentItem.CellsCount))
         {
             gridController.SetItemToGrid(socket.CurrentItem);
