@@ -31,6 +31,7 @@ public sealed class ItemModel
         foreach (var cell in this.occupyCells)
         {
             cell.Occupy();
+            cell.DeselectCell();
         }
     }
 
