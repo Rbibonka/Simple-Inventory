@@ -80,7 +80,7 @@ public sealed class ItemController : MonoBehaviour, IDisposable
 
     private void PointerDown(PointerEventData pointerEventData)
     {
-        itemModel.SetPosition(pointerEventData.position);
+        itemModel.SetPosition(pointerEventData);
         itemModel.ClearOccupyCells();
         itemView.SelectItem();
     }

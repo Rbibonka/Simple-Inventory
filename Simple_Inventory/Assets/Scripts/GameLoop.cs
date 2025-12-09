@@ -39,7 +39,6 @@ public sealed class GameLoop
 
     public async UniTask InitializeAsync(CancellationToken ct)
     {
-        itemsContainer.Initiailze(itemPrefab);
         gridController.Initialize(gridCellPrefab, gridConfig);
         menuController.Initialize(mainMenuLoaderController);
 
@@ -50,13 +49,14 @@ public sealed class GameLoop
         await menuController.HideAsync(ct);
 
         gameUIController.Show();
-
-        await UniTask.WaitForSeconds(0.2f);
-        await mainMenuLoaderController.HideAsync(ct);
-
         gameUIController.EnableUI();
 
+        itemsContainer.Initiailze(itemPrefab);
         itemSelector = new(itemsContainer, gridController);
+
+        await UniTask.WaitForSeconds(0.5f);
+        await mainMenuLoaderController.HideAsync(ct);
+        
     }
 
     private void OnStartButtonClicked()

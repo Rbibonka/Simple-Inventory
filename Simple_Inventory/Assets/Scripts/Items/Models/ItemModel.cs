@@ -64,8 +64,8 @@ public sealed class ItemModel
         itemMover.MoveTo(defaultPosition);
     }
 
-    public void SetPosition(Vector3 targetPosition)
+    public void SetPosition(PointerEventData delta)
     {
-        rectTransform.position = targetPosition;
+        itemMover.Move(delta);
     }
 }
