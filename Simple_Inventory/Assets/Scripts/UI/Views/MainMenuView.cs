@@ -30,14 +30,14 @@ public sealed class MainMenuView
     {
         foreach (var button in buttonsTransforms)
         {
-            button.Key.position += new Vector3(0, StartAnimationYPosition);
+            button.Key.localScale = Vector3.zero;
         }
 
         foreach (var button in buttonsTransforms)
         {
             await UniTask.WaitForSeconds(0.2f, cancellationToken: ct);
 
-            _ = button.Key.DOMove(button.Value, 1f);
+            _ = button.Key.DOScale(Vector3.one, 0.3f).SetEase(Ease.InSine);
         }
     }
 }
