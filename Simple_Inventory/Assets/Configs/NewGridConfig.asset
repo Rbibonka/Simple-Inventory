@@ -16,6 +16,6 @@ MonoBehaviour:
   Columns: 4
   Grid:
   - row: 01010101
-  - row: 01000101
-  - row: 01000101
+  - row: 01010101
+  - row: 01010101
   - row: 01010101
