@@ -24,17 +24,17 @@
 ### Puzzle механика  
 Двигай волшебные жезлы разной формы в доступные ячейки, грамотно управляй пространством, которое имеешь!
 
-// gif here.
+![Gif](Simple_Inventory/Assets/ReadmeFiles/ObstacleMove.gif)
 
 ### Красивый стилизованный UI  
 Эффекты и анимации для полного погружения
 
-// gif here.
+![Gif](Simple_Inventory/Assets/ReadmeFiles/Load.gif)
 
 ### Апргрейд жезлов  
 Каждый жезл имеет апгрейд — стакай одинаковые жезлы для их улучшения и освобождай место!
 
-// gif here.
+![Gif](Simple_Inventory/Assets/ReadmeFiles/Join.gif)
 
 ---
 
@@ -58,10 +58,8 @@
 
 Который включается и выключается галочками:
 
-// gif here.
-
+![Gif](Simple_Inventory/Assets/ReadmeFiles/Grid.gif)
 ### Структура проекта
 
 Удобная и простая архетиктура, легко настриваемые конфиги и переиспользуемые префабы для UI
 
-// Images here
