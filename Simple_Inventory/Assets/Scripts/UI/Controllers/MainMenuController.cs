@@ -20,21 +20,15 @@ public sealed class MainMenuController : MonoBehaviour
     [SerializeField]
     private UIButtonObserver exitButtonObserver;
 
-    private MainMenuLoaderController mainMenuLoaderController;
-
     private MainMenuView mainMenuView;
     private MainMenuModel mainMenuModel;
 
     public event Action StartButtonClicked;
 
-    public void Initialize(MainMenuLoaderController mainMenuLoaderController)
+    public void Initialize()
     {
-        this.mainMenuLoaderController = mainMenuLoaderController;
-
         playButtonObserver.ButtonClicked += OnPlayButtonClicked;
         exitButtonObserver.ButtonClicked += OnExitButtonClicked;
-
-        mainMenuLoaderController.Initialize();
 
         foreach (var controller in iconControllers)
         {
@@ -49,13 +43,12 @@ public sealed class MainMenuController : MonoBehaviour
 
     public async UniTask ShowAsync(CancellationToken ct)
     {
-        await UniTask.WhenAll(mainMenuLoaderController.HideAsync(ct), mainMenuView.MoveButtonsAsync(ct));
+        await mainMenuView.MoveButtonsAsync(ct);
         mainMenuView.ShowIcons();
     }
 
-    public async UniTask HideAsync(CancellationToken ct)
+    public void HideAsync()
     {
-        await mainMenuLoaderController.ShowAsync(ct);
         mainMenuModel.DisableUI();
     }
 

@@ -40,13 +40,16 @@ public sealed class GameLoop
     public async UniTask InitializeAsync(CancellationToken ct)
     {
         gridController.Initialize(gridCellPrefab, gridConfig);
-        menuController.Initialize(mainMenuLoaderController);
+        menuController.Initialize();
+
+        mainMenuLoaderController.Initialize();
 
         menuController.StartButtonClicked += OnStartButtonClicked;
 
         await menuController.ShowAsync(ct);
         await UniTask.WaitUntil(() => isGameStarted);
-        await menuController.HideAsync(ct);
+        await mainMenuLoaderController.ShowAsync(ct);
+        menuController.HideAsync();
 
         gameUIController.Show();
         gameUIController.EnableUI();
