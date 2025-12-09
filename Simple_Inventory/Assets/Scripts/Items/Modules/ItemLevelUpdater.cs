@@ -51,6 +51,8 @@ public sealed class ItemLevelUpdater
         item.UpdateLevel();
         item.UpdateImage(itemLevelsConfig.ItemLevels[index].sprites[item.Level]);
 
+        socketItem.Deinitialize();
+
         GameObject.Destroy(socketItem.gameObject);
     }
 }
