@@ -1922,7 +1922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5875442257978836854, guid: d46166e4bfa0c944b9a938f45fa6cfd9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 314
+      value: 296
       objectReference: {fileID: 0}
     - target: {fileID: 5875442257978836854, guid: d46166e4bfa0c944b9a938f45fa6cfd9, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1951,10 +1951,6 @@ PrefabInstance:
     - target: {fileID: 7198026312456631217, guid: d46166e4bfa0c944b9a938f45fa6cfd9, type: 3}
       propertyPath: m_Name
       value: grp_Stave
-      objectReference: {fileID: 0}
-    - target: {fileID: 8522097731306411131, guid: d46166e4bfa0c944b9a938f45fa6cfd9, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.11077976
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
