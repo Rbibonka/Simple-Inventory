@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ElementDragObserver : MonoBehaviour, IDragHandler
+public sealed class ElementDragObserver : MonoBehaviour, IDragHandler
 {
     public event Action<PointerEventData> Drag;
 

@@ -1,8 +1,9 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Threading;
 using UnityEngine;
 
-public sealed class GameLoop
+public sealed class GameLoop : IDisposable
 {
     private ItemsContainerController itemsContainer;
     private GridController gridController;
@@ -19,6 +20,8 @@ public sealed class GameLoop
     private bool isGameStarted;
 
     private const float waitTime = 0.5f;
+
+    private bool isDisposed;
 
     public GameLoop(
         GridConfig gridConfig,
@@ -38,6 +41,23 @@ public sealed class GameLoop
         this.gridCellPrefab = gridCellPrefab;
         this.mainMenuLoaderController = mainMenuLoaderController;
         this.itemLevels = itemLevels;
+    }
+
+    public void Dispose()
+    {
+        if (isDisposed)
+        {
+            return;
+        }
+
+        menuController.StartButtonClicked += OnStartButtonClicked;
+        menuController.ExitButtonClicked += OnExitButtonClicked;
+
+        menuController.Dispose();
+        itemsContainer.Dispose();
+        itemSelector.Dispose();
+
+        isDisposed = true;
     }
 
     public async UniTask InitializeAsync(CancellationToken ct)

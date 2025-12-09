@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ItemLevelUpdater
+public sealed class ItemLevelUpdater
 {
     private ItemSocketController[] itemSockets;
     private ItemLevelsConfig itemLevelsConfig;
@@ -50,6 +50,8 @@ public class ItemLevelUpdater
 
         item.UpdateLevel();
         item.UpdateImage(itemLevelsConfig.ItemLevels[index].sprites[item.Level]);
+
+        socketItem.Deinitialize();
 
         GameObject.Destroy(socketItem.gameObject);
     }

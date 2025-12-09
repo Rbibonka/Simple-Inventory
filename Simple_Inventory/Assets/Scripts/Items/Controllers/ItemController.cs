@@ -58,6 +58,11 @@ public sealed class ItemController : MonoBehaviour, IDisposable
         itemModel = new(rectTransform, itemsCellsControllers.Length, itemType, canvas);
     }
 
+    public void Deinitialize()
+    {
+        itemModel.ClearOccupyCells();
+    }
+
     public void Dispose()
     {
         if (isDisposed)

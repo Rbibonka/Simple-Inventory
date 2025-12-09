@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
 
-public class MainMenuLoaderController : MonoBehaviour
+public sealed class MainMenuLoaderController : MonoBehaviour
 {
     [SerializeField]
     private LoaderScreenController[] LoaderScreens;

@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using UnityEngine;
 
-public sealed class MainMenuController : MonoBehaviour
+public sealed class MainMenuController : MonoBehaviour, IDisposable
 {
     [SerializeField]
     private Canvas canvas;
@@ -26,6 +26,8 @@ public sealed class MainMenuController : MonoBehaviour
     public event Action StartButtonClicked;
     public event Action ExitButtonClicked;
 
+    private bool isDisposed;
+
     public void Initialize()
     {
         playButtonObserver.ButtonClicked += OnPlayButtonClicked;
@@ -40,6 +42,19 @@ public sealed class MainMenuController : MonoBehaviour
         mainMenuModel.SetUIElements(buttonsTransform);
 
         mainMenuView = new(mainMenuModel.ButtonsTransfroms, iconControllers);
+    }
+
+    public void Dispose()
+    {
+        if (isDisposed)
+        {
+            return;
+        }
+
+        playButtonObserver.ButtonClicked -= OnPlayButtonClicked;
+        exitButtonObserver.ButtonClicked -= OnExitButtonClicked;
+
+        isDisposed = true;
     }
 
     public async UniTask ShowAsync(CancellationToken ct)

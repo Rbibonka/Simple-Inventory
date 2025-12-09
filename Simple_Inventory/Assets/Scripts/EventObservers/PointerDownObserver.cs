@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PointerDownObserver : MonoBehaviour, IPointerDownHandler
+public sealed class PointerDownObserver : MonoBehaviour, IPointerDownHandler
 {
     public event Action<PointerEventData> PointerDown;
 

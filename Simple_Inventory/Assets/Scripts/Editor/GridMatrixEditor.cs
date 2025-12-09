@@ -3,14 +3,17 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(GridConfig))]
-public class GridMatrixEditor : Editor
+public sealed class GridMatrixEditor : Editor
 {
+    private const string Rows = "Rows";
+    private const string Columns = "Columns";
+
     public override void OnInspectorGUI()
     {
         GridConfig matrixExample = (GridConfig)target;
 
-        int newRows = EditorGUILayout.IntField("Rows", matrixExample.Rows);
-        int newCols = EditorGUILayout.IntField("Columns", matrixExample.Columns);
+        int newRows = EditorGUILayout.IntField(Rows, matrixExample.Rows);
+        int newCols = EditorGUILayout.IntField(Columns, matrixExample.Columns);
 
         if (newRows < 1) newRows = 1;
         if (newCols < 1) newCols = 1;

@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
 
-public class LoaderScreenController : MonoBehaviour
+public sealed class LoaderScreenController : MonoBehaviour
 {
     [SerializeField]
     private RectTransform img_Screen;

@@ -7,6 +7,8 @@ public class ItemMover
     private RectTransform rectTransform;
     private Canvas canvas;
 
+    private const float moveTime = 0.2f;
+
     public ItemMover(RectTransform rectTransform, Canvas canvas)
     {
         this.rectTransform = rectTransform;
@@ -28,6 +30,6 @@ public class ItemMover
 
     public void MoveTo(Vector3 target)
     {
-        rectTransform.DOMove(target, 0.2f);
+        rectTransform.DOMove(target, moveTime);
     }
 }

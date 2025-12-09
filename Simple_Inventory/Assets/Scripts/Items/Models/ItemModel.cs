@@ -13,12 +13,10 @@ public sealed class ItemModel
     private ItemMover itemMover;
     private RectTransform rectTransform;
 
-    private int cellsCount;
-
     private IReadOnlyList<GridCellController> occupyCells;
 
+    private int cellsCount;
     private Vector3 defaultPosition;
-
     private int level;
     private ItemType itemType;
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MainMenuButtonController : MonoBehaviour
+public sealed class MainMenuButtonController : MonoBehaviour
 {
     [SerializeField]
     private PointerDownObserver pointerDownObserver;

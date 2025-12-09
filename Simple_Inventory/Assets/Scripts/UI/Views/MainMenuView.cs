@@ -12,6 +12,9 @@ public sealed class MainMenuView
 
     private IconController[] iconControllers;
 
+    private const float waitTime = 0.2f;
+    private const float scaleTime = 0.3f;
+
     public MainMenuView(IReadOnlyDictionary<RectTransform, Vector3> buttonsTransforms, IconController[] iconControllers)
     {
         this.buttonsTransforms = buttonsTransforms;
@@ -35,9 +38,9 @@ public sealed class MainMenuView
 
         foreach (var button in buttonsTransforms)
         {
-            await UniTask.WaitForSeconds(0.2f, cancellationToken: ct);
+            await UniTask.WaitForSeconds(waitTime, cancellationToken: ct);
 
-            _ = button.Key.DOScale(Vector3.one, 0.3f).SetEase(Ease.InSine);
+            _ = button.Key.DOScale(Vector3.one, scaleTime).SetEase(Ease.InSine);
         }
     }
 }

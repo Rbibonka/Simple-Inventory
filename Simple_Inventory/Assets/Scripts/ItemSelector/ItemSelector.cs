@@ -1,20 +1,35 @@
-public sealed class ItemSelector
+using System;
+
+public sealed class ItemSelector : IDisposable
 {
     private ItemsContainerController itemsContainer;
     private GridController gridController;
     private ItemLevelUpdater itemLevelUpdater;
-    private ItemLevelsConfig itemLevelsConfig;
+
+    private bool isDisposed;
 
     public ItemSelector(ItemsContainerController itemsContainer, GridController gridController, ItemLevelsConfig itemLevelsConfig)
     {
         this.itemsContainer = itemsContainer;
         this.gridController = gridController;
-        this.itemLevelsConfig = itemLevelsConfig;
 
         itemLevelUpdater = new(itemsContainer.ItemSockets, itemLevelsConfig);
 
         this.itemsContainer.ItemDragged += OnItemDragged;
         this.itemsContainer.ItemDeselected += OnItemDereleased;
+    }
+
+    public void Dispose()
+    {
+        if (isDisposed)
+        {
+            return;
+        }
+
+        itemsContainer.ItemDragged += OnItemDragged;
+        itemsContainer.ItemDeselected += OnItemDereleased;
+
+        isDisposed = true;
     }
 
     private void OnItemDereleased(ItemSocketController socket)
