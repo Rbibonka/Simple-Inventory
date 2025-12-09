@@ -24,6 +24,9 @@ public sealed class Bootstrap : MonoBehaviour
     private MainMenuController menuController;
 
     [SerializeField]
+    private MainMenuLoaderController mainMenuLoaderController;
+
+    [SerializeField]
 
     private GameUIController gameUIController;
 
@@ -33,7 +36,7 @@ public sealed class Bootstrap : MonoBehaviour
     {
         CancellationTokenSource cts = new();
 
-        gameLoop = new(gridConfig, itemsContainer, gridController, menuController, gameUIController, cellController, itemPrefab);
+        gameLoop = new(gridConfig, itemsContainer, gridController, menuController, gameUIController, cellController, mainMenuLoaderController, itemPrefab);
         gameLoop.InitializeAsync(cts.Token).Forget();
     }
 }

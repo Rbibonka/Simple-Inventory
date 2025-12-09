@@ -51,7 +51,8 @@ public sealed class GridMatcher
                 int gridY = y + (int)itemCells[i].CellPosition.y;
 
                 if (gridCellControllers.GetLength(0) <= gridX || gridCellControllers.GetLength(1) <= gridY
-                    || gridCellControllers[gridX, gridY].IsOccupy)
+                    || gridCellControllers[gridX, gridY].IsOccupy
+                    || !gridCellControllers[gridX, gridY].IsActive)
                 {
                     continue;
                 }

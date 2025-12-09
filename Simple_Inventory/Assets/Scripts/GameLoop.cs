@@ -8,6 +8,7 @@ public sealed class GameLoop
 
     private ItemController itemPrefab;
     private GridCellController gridCellPrefab;
+    private MainMenuLoaderController mainMenuLoaderController;
 
     private MainMenuController menuController;
     private GameUIController gameUIController;
@@ -23,6 +24,7 @@ public sealed class GameLoop
         MainMenuController menuController,
         GameUIController gameUIController,
         GridCellController gridCellPrefab,
+        MainMenuLoaderController mainMenuLoaderController,
         ItemController itemPrefab)
     {
         this.gridConfig = gridConfig;
@@ -31,14 +33,14 @@ public sealed class GameLoop
         this.menuController = menuController;
         this.gameUIController = gameUIController;
         this.gridCellPrefab = gridCellPrefab;
+        this.mainMenuLoaderController = mainMenuLoaderController;
         this.itemPrefab = itemPrefab;
     }
 
     public async UniTask InitializeAsync(CancellationToken ct)
     {
-        itemsContainer.Initiailze(itemPrefab);
         gridController.Initialize(gridCellPrefab, gridConfig);
-        menuController.Initialize();
+        menuController.Initialize(mainMenuLoaderController);
 
         menuController.StartButtonClicked += OnStartButtonClicked;
 
@@ -47,11 +49,14 @@ public sealed class GameLoop
         await menuController.HideAsync(ct);
 
         gameUIController.Show();
+        gameUIController.EnableUI();
 
-        await UniTask.WaitForSeconds(0.2f);
-        await menuController.ShowAsync(ct);
-
+        itemsContainer.Initiailze(itemPrefab);
         itemSelector = new(itemsContainer, gridController);
+
+        await UniTask.WaitForSeconds(0.5f);
+        await mainMenuLoaderController.HideAsync(ct);
+        
     }
 
     private void OnStartButtonClicked()

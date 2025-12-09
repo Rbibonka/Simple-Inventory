@@ -10,23 +10,34 @@ public sealed class MainMenuView
 
     private IReadOnlyDictionary<RectTransform, Vector3> buttonsTransforms;
 
-    public MainMenuView(IReadOnlyDictionary<RectTransform, Vector3> buttonsTransforms)
+    private IconController[] iconControllers;
+
+    public MainMenuView(IReadOnlyDictionary<RectTransform, Vector3> buttonsTransforms, IconController[] iconControllers)
     {
         this.buttonsTransforms = buttonsTransforms;
+        this.iconControllers = iconControllers;
+    }
+
+    public void ShowIcons()
+    {
+        foreach (var controller in iconControllers)
+        {
+            controller.Show();
+        }
     }
 
     public async UniTask MoveButtonsAsync(CancellationToken ct)
     {
         foreach (var button in buttonsTransforms)
         {
-            button.Key.position += new Vector3(0, StartAnimationYPosition);
+            button.Key.localScale = Vector3.zero;
         }
 
         foreach (var button in buttonsTransforms)
         {
-            await UniTask.WaitForSeconds(0.4f, cancellationToken: ct);
+            await UniTask.WaitForSeconds(0.2f, cancellationToken: ct);
 
-            _ = button.Key.DOMove(button.Value, 2f);
+            _ = button.Key.DOScale(Vector3.one, 0.3f).SetEase(Ease.InSine);
         }
     }
 }

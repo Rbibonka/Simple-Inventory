@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public sealed class ItemController : MonoBehaviour, IDisposable
 {
@@ -81,7 +80,7 @@ public sealed class ItemController : MonoBehaviour, IDisposable
 
     private void PointerDown(PointerEventData pointerEventData)
     {
-        itemModel.SetPosition(pointerEventData.position);
+        itemModel.SetPosition(pointerEventData);
         itemModel.ClearOccupyCells();
         itemView.SelectItem();
     }
@@ -94,7 +93,7 @@ public sealed class ItemController : MonoBehaviour, IDisposable
 
     private void OnDrag(PointerEventData pointerEventData)
     {
-        itemModel.Drag(pointerEventData.delta);
+        itemModel.Drag(pointerEventData);
         ItemDragged?.Invoke();
     }
 }

@@ -12,12 +12,14 @@ public sealed class MainMenuController : MonoBehaviour
     private RectTransform[] buttonsTransform;
 
     [SerializeField]
+    private IconController[] iconControllers;
+
+    [SerializeField]
     private UIButtonObserver playButtonObserver;
 
     [SerializeField]
     private UIButtonObserver exitButtonObserver;
 
-    [SerializeField]
     private MainMenuLoaderController mainMenuLoaderController;
 
     private MainMenuView mainMenuView;
@@ -25,29 +27,36 @@ public sealed class MainMenuController : MonoBehaviour
 
     public event Action StartButtonClicked;
 
-    public void Initialize()
+    public void Initialize(MainMenuLoaderController mainMenuLoaderController)
     {
+        this.mainMenuLoaderController = mainMenuLoaderController;
+
         playButtonObserver.ButtonClicked += OnPlayButtonClicked;
         exitButtonObserver.ButtonClicked += OnExitButtonClicked;
 
         mainMenuLoaderController.Initialize();
 
-        mainMenuModel = new();
-        mainMenuModel.SetButtonsPosition(buttonsTransform);
+        foreach (var controller in iconControllers)
+        {
+            controller.Initialize();
+        }
 
-        mainMenuView = new(mainMenuModel.ButtonsTransfroms);
+        mainMenuModel = new(canvas);
+        mainMenuModel.SetUIElements(buttonsTransform);
+
+        mainMenuView = new(mainMenuModel.ButtonsTransfroms, iconControllers);
     }
 
     public async UniTask ShowAsync(CancellationToken ct)
     {
         await UniTask.WhenAll(mainMenuLoaderController.HideAsync(ct), mainMenuView.MoveButtonsAsync(ct));
+        mainMenuView.ShowIcons();
     }
 
     public async UniTask HideAsync(CancellationToken ct)
     {
         await mainMenuLoaderController.ShowAsync(ct);
-
-        canvas.enabled = false;
+        mainMenuModel.DisableUI();
     }
 
     private void OnPlayButtonClicked()

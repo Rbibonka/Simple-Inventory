@@ -49,16 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16eaafe2ba0f0742a888277efcdd1b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos:
-  - {x: 0, y: 0}
-  - {x: 0, y: 1}
   rectTransform: {fileID: 6030046198270752729}
   img_GridCell: {fileID: 9175990594353817039}
   gridCellConfig:
     <DefaultColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
     <SelectedColor>k__BackingField: {r: 0.5163535, g: 1, b: 0.3820755, a: 1}
-    <HoveredColor>k__BackingField: {r: 1, g: 0.814292, b: 0.28773582, a: 1}
     <DeactivatedColor>k__BackingField: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
+  matrixGridPosition: {x: 0, y: 0}
 --- !u!1 &5541496379447551551
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +123,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6750033715232265413, guid: 3d1957e38e569c341bbb856ae26672f8, type: 3}
+  m_Sprite: {fileID: -1763600661206566669, guid: 443d1ba47e2292f4394593f68f561e43, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
