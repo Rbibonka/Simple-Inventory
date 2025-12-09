@@ -19,7 +19,7 @@ public struct ItemLevels
 }
 
 [CreateAssetMenu(fileName = "NewLevelsItemConfig", menuName = "Items/ItemLevels")]
-public class ItemLevelsConfig : ScriptableObject
+public sealed class ItemLevelsConfig : ScriptableObject
 {
     [field: SerializeField]
     public List<ItemLevels> ItemLevels { get; private set; }

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIButtonObserver : MonoBehaviour
+public sealed class UIButtonObserver : MonoBehaviour
 {
     public event Action ButtonClicked;
 

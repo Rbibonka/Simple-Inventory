@@ -48,5 +48,7 @@ public sealed class Bootstrap : MonoBehaviour
         cts?.Dispose();
 
         cts = null;
+
+        gameLoop.Dispose();
     }
 }

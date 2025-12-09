@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public sealed class ItemSocketController : MonoBehaviour
+public sealed class ItemSocketController : MonoBehaviour, IDisposable
 {
     public ItemController CurrentItem => currentItem;
 
@@ -12,6 +12,8 @@ public sealed class ItemSocketController : MonoBehaviour
     private RectTransform rectTransform;
 
     private ItemController currentItem;
+
+    private bool isDisposed;
 
     public void SetItem(ItemController item)
     {
@@ -57,5 +59,21 @@ public sealed class ItemSocketController : MonoBehaviour
     private void OnItemDragged()
     {
         ItemDragged?.Invoke(this);
+    }
+
+    public void Dispose()
+    {
+        if (isDisposed)
+        {
+            return;
+        }
+
+        if (currentItem != null)
+        {
+            currentItem.ItemDragged -= OnItemDragged;
+            currentItem.ItemPointerUp -= OnItemDeselected;
+        }
+
+        isDisposed = true;
     }
 }

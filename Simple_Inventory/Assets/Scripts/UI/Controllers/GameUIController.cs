@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameUIController : MonoBehaviour
+public sealed class GameUIController : MonoBehaviour
 {
     [SerializeField]
     private Canvas canvas;

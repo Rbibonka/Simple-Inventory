@@ -3,7 +3,7 @@ using DG.Tweening;
 using System.Threading;
 using UnityEngine;
 
-public class LoaderScreenView
+public sealed class LoaderScreenView
 {
     private RectTransform rectTransform;
 

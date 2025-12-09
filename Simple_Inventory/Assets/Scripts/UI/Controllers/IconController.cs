@@ -1,7 +1,6 @@
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class IconController : MonoBehaviour
+public sealed class IconController : MonoBehaviour
 {
     [SerializeField]
     private new ParticleSystem particleSystem;

@@ -65,6 +65,8 @@ public sealed class ItemsContainerController : MonoBehaviour, IDisposable
 
         foreach (var itemSocket in itemSockets)
         {
+            itemSocket.Dispose();
+
             itemSocket.ItemDragged -= OnItemDragged;
             itemSocket.ItemDereleased -= OnItemDereleased;
         }

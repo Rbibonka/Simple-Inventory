@@ -8,7 +8,7 @@ public struct BoolRow
 }
 
 [CreateAssetMenu(fileName = "NewGridConfig", menuName = "Grid/Grid Data")]
-public class GridConfig : ScriptableObject
+public sealed class GridConfig : ScriptableObject
 {
     public int Rows = 3;
     public int Columns = 3;

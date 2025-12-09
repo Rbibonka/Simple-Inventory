@@ -23,7 +23,6 @@ public sealed class GridCellController : MonoBehaviour
     private GridCellView cellView;
     private GridCellModel cellModel;
 
-    [SerializeField]
     private Vector2 matrixGridPosition;
 
     public void Initialize(bool isActive, Vector2 matrixGridPosition)
