@@ -5,9 +5,6 @@ using UnityEngine;
 [CustomEditor(typeof(GridConfig))]
 public sealed class GridMatrixEditor : Editor
 {
-    private const int Rows = 4;
-    private const int Columns = 4;
-
     public override void OnInspectorGUI()
     {
         GridConfig matrixExample = (GridConfig)target;
